@@ -1,3 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+/* Scan Thymeleaf templates + JS + Flowbite usage */
+@source "../../templates";
+@source "../JS";
+@source "../node_modules/flowbite";
+
+/* Flowbite Tailwind plugin */
+@plugin "flowbite/plugin";
