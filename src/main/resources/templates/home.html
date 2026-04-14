@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::parent(~{::#content},~{::title})}">
 <head>
     <meta charset="UTF-8">
     <title>SCM HOME</title>
@@ -14,7 +14,10 @@
         <p> Profession of the developer: <span th:text="${work}"></span></p>
         <button class="rounded bg-blue-700 p-3 hover:bg-blue-500">Click me</button>
     </div>
-    
+    <div id="content">
+        Welcome tom home page
+    </div>
+
 
 
 
