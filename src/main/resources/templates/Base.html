@@ -4,13 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:replace="${title}">Base</title>
+
+    <!-- ✅ This MUST be first, before CSS, before anything -->
+    <script>
+        (function() {
+            const theme = localStorage.getItem("theme") || "light";
+            document.documentElement.classList.add(theme);
+        })();
+    </script>
+
     <link rel="stylesheet" th:href="@{/css/output.css}">
-    <link href="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 </head>
-<body id="Base" class="text-center">
+
+<body class="text-center bg-white text-black dark:bg-gray-900 dark:text-white transition-colors duration-300">
+
     <div th:replace="~{navbar::navbar}"></div>
 
-
     <script src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
+    <script th:src="@{/JS/Script.js}"></script>
+
 </body>
 </html>
