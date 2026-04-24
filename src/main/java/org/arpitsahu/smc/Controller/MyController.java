@@ -30,4 +30,9 @@ public class MyController {
     public String contact(){
         return "contact";
     }
+
+    @GetMapping("/register")
+    public String register(){
+        return "register";
+    }
 }

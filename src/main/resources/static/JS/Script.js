@@ -16,18 +16,16 @@ function setupToggle() {
         updateButton(currentTheme);
     });
 }
- 
-    function updateButton(theme) {
+
+function updateButton(theme) {
     const button = document.getElementById("themeToggleButton");
     const icon = button.querySelector("i");
     const text = button.querySelector("span");
 
     if (theme === "dark") {
-        // Currently dark → show moon + "Dark"
         icon.className = "fa-solid fa-moon";
         text.textContent = "Dark";
     } else {
-        // Currently light → show sun + "Light"
         icon.className = "fa-solid fa-sun";
         text.textContent = "Light";
     }
