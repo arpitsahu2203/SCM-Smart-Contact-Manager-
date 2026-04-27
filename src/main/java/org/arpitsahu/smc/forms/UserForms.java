@@ -1,5 +1,8 @@
 package org.arpitsahu.smc.forms;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,9 +22,23 @@ import lombok.ToString;
 @Builder         // Lombok: enables builder pattern → UserForms.builder().name("Arpit").build()
 @ToString        // Lombok: generates toString() → useful for System.out.print(userform) in controller
 public class UserForms {
+
+    @NotBlank(message="Name is required")
+    @Size(min=3, max=30, message="Name must beetween 3-30 characters")
     public String name;       // maps to name field in the HTML form
+
+    @NotBlank(message="Password is required")
+    @Size(min=6, max=15, message="Password must contain 6-15 characters")
     public String Password;   // maps to password field in the HTML form
+
+    @NotBlank(message="Phone number is Required")
+    @Size(min=1,max=10, message="Phone number must contain 10 characters")
     public String PhoneNumber;// maps to phone number field in the HTML form
+
+    @NotBlank(message="Email is required")
+    @Email(message="Invalid Email")
     public String Email;      // maps to email field in the HTML form
+
+    @NotBlank(message="About is required")
     public String about;      // maps to about field in the HTML form
 }
