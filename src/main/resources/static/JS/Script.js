@@ -36,5 +36,6 @@ function setTheme(theme) {
 }
 
 function getTheme() {
-    return localStorage.getItem("theme") || "light";
+    return localStorage.getItem("theme") ||
+        (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
 }

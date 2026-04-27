@@ -7,8 +7,10 @@
 
     <!-- ✅ Inline script FIRST — prevents theme flash -->
     <script>
+        // In base.html <head> inline script
         (function() {
-            const theme = localStorage.getItem("theme") || "light";
+            const saved = localStorage.getItem("theme");
+            const theme = saved || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
             document.documentElement.classList.add(theme);
         })();
     </script>
