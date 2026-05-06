@@ -5,15 +5,21 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.arpitsahu.smc.Entities.Users;
+import org.arpitsahu.smc.Helper.AppConstants;
 import org.arpitsahu.smc.Helper.ResourceNotFoundException;
 import org.arpitsahu.smc.Repository.UserRepo;
 import org.arpitsahu.smc.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import lombok.extern.slf4j.Slf4j;
+
 
 // This is the Service Implementation class
 // It implements the UserService interface and contains the actual business logic
 // @Service → marks this as a Spring-managed bean so @Autowired works in the controller
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -21,12 +27,25 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepo userrepo;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    
     @Override
     public Users saveUser(Users user) {
         // Since our ID is a String (not auto-increment), we manually generate a unique ID
         // UUID.randomUUID() generates a globally unique string like "a3f9b2c1-..."
         String userId = UUID.randomUUID().toString();
         user.setId(userId);
+
+        //password encoder
+        //enoding password through BCrypt
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        //setting roles
+        user.setRoleList(List.of(AppConstants.ROLE_USER));
+        user.setEnabled(true);
+
+
         return userrepo.save(user); // saves to DB and returns the saved entity
     }
 
@@ -72,6 +91,7 @@ public class UserServiceImpl implements UserService {
         // orElse(null) → returns null if user not found (no exception thrown)
         Users user2 = userrepo.findById(id).orElse(null);
         return user2 != null; // simplified boolean return
+
     }
 
     @Override

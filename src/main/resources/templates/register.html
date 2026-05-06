@@ -12,7 +12,7 @@
         <div class="grid grid-cols-12">
             <div class="col-span-4 md:col-span-2 lg:col-span-3 xl:col-span-3"></div>
             <div class="col-span-12 md:col-span-8 lg:col-span-6 xl:col-span-6 justify-self-center w-full px-4"> 
-                <a class="bg-neutral-primary-soft block w-full max-w-md mx-auto p-6 border border-default rounded-xl shadow-xs hover:bg-neutral-secondary-medium text-left">
+                <div class="bg-neutral-primary-soft block w-full max-w-md mx-auto p-6 border border-default rounded-xl shadow-xs hover:bg-neutral-secondary-medium text-left">
                     <div th:replace="messages::messagebox"></div>
                     <h5 class="mb-3 text-2xl font-semibold tracking-tight text-heading leading-8">Sign Up</h5>
                         <!-- Bind this form to the model object named userform. -->
@@ -21,6 +21,7 @@
                         th:object="${userform}" 
                         class="w-full mt-5"
                         novalidate>
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                             <!-- POST sends data in the request body instead of the URL. -->
                         <div class="mb-5">
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Name</label>
@@ -30,18 +31,18 @@
                         </div>
                         <div class="mb-5">
                             <label for="email" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Your Email</label>
-                            <input type="email" id="Email" th:field="*{Email}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@abc" required />
-                            <p th:if="${#fields.hasErrors('Email')}" th:errors="*{Email}" class="text-red-600 text-xs font-thin py-1 px-1"></p>
+                            <input type="email" id="email" th:field="*{email}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@abc" required />
+                            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-red-600 text-xs font-thin py-1 px-1"></p>
                         </div>
                         <div class="mb-5">
                             <label for="phoneNumber" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Your Phone Number</label>
-                            <input type="text" id="PhoneNumber" th:field="*{PhoneNumber}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="445151..." required />
-                            <p th:if="${#fields.hasErrors('PhoneNumber')}" th:errors="*{PhoneNumber}" class="text-red-600 text-xs font-thin py-1 px-1"></p>
+                            <input type="text" id="phoneNumber" th:field="*{phoneNumber}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="445151..." required />
+                            <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="text-red-600 text-xs font-thin py-1 px-1"></p>
                         </div>
                         <div class="mb-5">
                             <label for="password" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
-                            <input type="password" id="Password" th:field="*{Password}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
-                            <p th:if="${#fields.hasErrors('Password')}" th:errors="*{Password}" class="text-red-600 text-xs font-thin py-1 px-1"></p>
+                            <input type="password" id="password" th:field="*{password}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-red-600 text-xs font-thin py-1 px-1"></p>
                         </div>
                         <div class="mb-5">
                             <label for="about" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">About Yourself</label>
@@ -54,7 +55,7 @@
                         </div>
 
                         </form>
-                </a>
+                    </div>
             </div>
         </div>
     </div>

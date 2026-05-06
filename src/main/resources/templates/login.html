@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{Base::parent(~{::#content},~{::title})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:fragment="title">Login</title>
+    </head>
+<body>
+    <!-- Provide the fragments that Base expects -->
+    <div th:fragment="content" id="content" class="p-6">
+        <div class="grid grid-cols-12">
+            <div class="col-span-4 md:col-span-2 lg:col-span-3 xl:col-span-3"></div>
+            <div class="col-span-12 md:col-span-8 lg:col-span-6 xl:col-span-6 justify-self-center w-full px-4"> 
+                <div class="bg-neutral-primary-soft block w-full max-w-md mx-auto p-6 border border-default rounded-xl shadow-xs hover:bg-neutral-secondary-medium text-left">
+                    <div th:replace="~{messages::messagebox}"></div>
+                    <h5 class="mb-3 text-2xl font-semibold tracking-tight text-heading leading-8">Login in</h5>
+
+            <div class="text-red-600 text-center my-3" th:if="${param.error}">Invalid username and password.</div>
+            <div class="text-green-600 text-center my-3" th:if="${param.logout}">You have been logged out.</div>
+
+
+                        <!-- Bind this form to the model object named userform. -->
+                        <form
+                        method="post"
+                        th:action="@{/authenticate}"
+                        class="w-full mt-5"
+                        >
+                            <!-- POST sends data in the request body instead of the URL. -->
+                        <div class="mb-5">
+                            <label for="email" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Your Email</label>
+                            <input name="email" type="email" id="email"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@abc" required />
+                            <!-- <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-red-600 text-xs font-thin py-1 px-1"></p> -->
+                        </div>
+                        <div class="mb-5">
+                            <label for="password" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
+                            <input name="password" type="password" id="password"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                            <!-- <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-red-600 text-xs font-thin py-1 px-1"></p> -->
+                        </div>
+                        <div class="flex items-center justify-center gap-3">
+                            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700">Login</button>
+                            
+                        </div>
+
+                        </form>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+</body>
+</html>

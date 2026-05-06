@@ -19,10 +19,15 @@ import jakarta.validation.Valid;
 
 @Controller//will return a html page upon calls
 @RequestMapping("/SMC")
-public class MyController {
+public class PageController {
 
     @Autowired
     UserService userService;
+
+    @GetMapping("/")
+    public String index(){
+        return "redirect:/SMC/home";
+    }
 
     @GetMapping("/home")
     public String Home(Model mod){
@@ -45,6 +50,8 @@ public class MyController {
     public String contact(){
         return "contact";
     }
+
+    
 
 
     //form here we are sending request for the form
@@ -77,10 +84,10 @@ public class MyController {
         //UserForm-->User-->save to database
         Users user=Users.builder().
         name(userform.getName()).
-        Email(userform.getEmail()).
-        PhoneNumber(userform.getPhoneNumber()).
+        email(userform.getEmail()).
+        phoneNumber(userform.getPhoneNumber()).
         about(userform.getAbout()).
-        Password(userform.getPassword()).
+        password(userform.getPassword()).
         build();
 
         Users savedUser=userService.saveUser(user);
