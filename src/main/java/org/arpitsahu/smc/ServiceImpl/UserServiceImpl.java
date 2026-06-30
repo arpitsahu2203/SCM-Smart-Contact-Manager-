@@ -38,11 +38,13 @@ public class UserServiceImpl implements UserService {
         user.setId(userId);
 
         //password encoder
-        //enoding password through BCrypt
+        //encoding password through BCrypt
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         //setting roles
         user.setRoleList(List.of(AppConstants.ROLE_USER));
+
+
         user.setEnabled(true);
 
 
@@ -68,7 +70,7 @@ public class UserServiceImpl implements UserService {
         user2.setPhoneNumber(user.getPhoneNumber());
         user2.setProfilePic(user.getProfilePic());
         user2.setEmailVerified(user.isEmailVerified());
-        user2.setPhoneNumberVerfied(user.isPhoneNumberVerfied());
+        user2.setPhoneNumberVerified(user.isPhoneNumberVerified());
         user2.setProvider(user.getProvider());
         user2.setProviderId(user.getProviderId()); // fixed: was incorrectly using user2
         user2.setEnabled(user.isEnabled());
@@ -106,5 +108,10 @@ public class UserServiceImpl implements UserService {
     public List<Users> getAllUsers() {
         // findAll() → returns all users from the DB as a List
         return userrepo.findAll();
+    }
+
+    @Override
+    public Users getUserByEmail(String email) {
+        return userrepo.findByEmail(email).orElse(null);
     }
 }

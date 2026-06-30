@@ -3,7 +3,6 @@ package org.arpitsahu.smc.Entities;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import org.jspecify.annotations.Nullable;
@@ -59,9 +58,9 @@ public class Users implements UserDetails {
     @Builder.Default
     private boolean emailVerified=false;
     @Builder.Default
-    private boolean phoneNumberVerfied=false;
+    private boolean phoneNumberVerified =false;
 
-    //Social Logins like google, facebook, etc.
+    //Social Logins like Google, facebook, etc.
     @Builder.Default
     @Enumerated(value=EnumType.STRING)
     private Providers provider=Providers.SELF;
@@ -77,9 +76,11 @@ public class Users implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        //list of roles[UUSER,ADMIN]
-        //Collection of GrantedAuthority [ROLE_USER,ROLE_ADMIN]
-        return roleList.stream().map(role-> new SimpleGrantedAuthority(role)).toList();
+        //list of roles[USER,ADMIN]
+        //Collection of SimpleGrantedAuthority [ROLE_USER,ROLE_ADMIN]
+        Collection<SimpleGrantedAuthority> roles= roleList.stream().map(role-> new SimpleGrantedAuthority(role)).toList();
+
+        return roles;
     }
 
     @Override
@@ -90,6 +91,21 @@ public class Users implements UserDetails {
     @Override
     public String getUsername() {
         return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked(){
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
     @Override

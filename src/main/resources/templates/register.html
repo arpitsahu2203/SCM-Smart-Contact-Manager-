@@ -13,7 +13,7 @@
             <div class="col-span-4 md:col-span-2 lg:col-span-3 xl:col-span-3"></div>
             <div class="col-span-12 md:col-span-8 lg:col-span-6 xl:col-span-6 justify-self-center w-full px-4"> 
                 <div class="bg-neutral-primary-soft block w-full max-w-md mx-auto p-6 border border-default rounded-xl shadow-xs hover:bg-neutral-secondary-medium text-left">
-                    <div th:replace="messages::messagebox"></div>
+                    <div th:replace="~{messages::messagebox}"></div>
                     <h5 class="mb-3 text-2xl font-semibold tracking-tight text-heading leading-8">Sign Up</h5>
                         <!-- Bind this form to the model object named userform. -->
                         <form th:action="@{/SMC/do-register}" 
@@ -21,7 +21,6 @@
                         th:object="${userform}" 
                         class="w-full mt-5"
                         novalidate>
-                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                             <!-- POST sends data in the request body instead of the URL. -->
                         <div class="mb-5">
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Name</label>

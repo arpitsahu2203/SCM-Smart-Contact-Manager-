@@ -31,4 +31,6 @@ public interface UserService {
 
     // Returns a list of ALL users in the database
     List<Users> getAllUsers();
+
+    Users getUserByEmail(String email);
 }

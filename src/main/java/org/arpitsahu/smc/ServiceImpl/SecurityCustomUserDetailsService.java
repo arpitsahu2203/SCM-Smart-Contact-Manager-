@@ -1,4 +1,4 @@
-package org.arpitsahu.smc.Config;
+package org.arpitsahu.smc.ServiceImpl;
 
 import org.arpitsahu.smc.Entities.Users;
 import org.arpitsahu.smc.Repository.UserRepo;
@@ -19,6 +19,9 @@ public class SecurityCustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+        //Yahan par humlog apne user ko load karenge
+
        Users user=userRepo.findByEmail(username)
        .orElseThrow(()->new UsernameNotFoundException("User not found with email: "+username));
 

@@ -9,6 +9,8 @@
     </head>
 <body>
     <!-- Provide the fragments that Base expects -->
+
+<!--    th:fragment="content" means we are given the name to the fragment that is later caught by th:replace -->
     <div th:fragment="content" id="content" class="p-6">
         <div class="grid grid-cols-12">
             <div class="col-span-4 md:col-span-2 lg:col-span-3 xl:col-span-3"></div>
@@ -17,11 +19,16 @@
                     <div th:replace="~{messages::messagebox}"></div>
                     <h5 class="mb-3 text-2xl font-semibold tracking-tight text-heading leading-8">Login in</h5>
 
-            <div class="text-red-600 text-center my-3" th:if="${param.error}">Invalid username and password.</div>
-            <div class="text-green-600 text-center my-3" th:if="${param.logout}">You have been logged out.</div>
+                    <div class="text-red-600 text-center my-3" th:if="${param.error}">Invalid username and password.</div>
+                    <div class="text-green-600 text-center my-3" th:if="${param.logout}">You have been logged out.</div>
 
 
                         <!-- Bind this form to the model object named userform. -->
+
+                        <!-- Login form -->
+                        <!-- Sends a POST request to Spring Security's login processing URL -->
+                        <!-- Thymeleaf converts th:action="@{/authenticate}" to action="/authenticate" -->
+                        <!-- Spring Security intercepts POST /authenticate and validates credentials -->
                         <form
                         method="post"
                         th:action="@{/authenticate}"
@@ -40,8 +47,27 @@
                         </div>
                         <div class="flex items-center justify-center gap-3">
                             <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700">Login</button>
-                            
+                            <button type="reset" class="text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-orange-600 dark:hover:bg-orange-700">Reset</button>
                         </div>
+                            <div class="flex justify-center mt-3">
+                                <a th:href="@{'/oauth2/authorization/google'}" class="inline-flex items-center gap-3 rounded-lg border border-gray-300 bg-white dark:bg-gray-900 dark:text-white px-6 py-3 text-sm font-medium text-black-700 shadow-sm transition duration-200 hover:bg-amber-50 hover:shadow-md active:scale-95">
+                                    <img src="https://www.vectorlogo.zone/logos/google/google-icon.svg" alt="Google Logo" class="h-5 w-5"/>Continue with Google
+                                </a>
+                            </div>
+                            <div class="flex justify-center mt-3">
+                                <a th:href="@{'/oauth2/authorization/github'}"
+                                   class="inline-flex items-center gap-3 rounded-lg bg-[#24292F] px-6 py-3 text-sm font-medium text-white shadow-sm transition duration-200 hover:bg-[#1b1f23] hover:shadow-md active:scale-95">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         viewBox="0 0 24 24"
+                                         class="h-5 w-5"
+                                         fill="white">
+                                        <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56 0-.28-.01-1.03-.02-2.03-3.2.69-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.05-.71.08-.69.08-.69 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.27-5.24-5.66 0-1.25.45-2.27 1.18-3.07-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.17a10.9 10.9 0 0 1 5.74 0c2.19-1.48 3.15-1.17 3.15-1.17.62 1.59.23 2.76.11 3.05.73.8 1.18 1.82 1.18 3.07 0 4.4-2.69 5.36-5.25 5.65.41.35.78 1.05.78 2.12 0 1.53-.01 2.77-.01 3.15 0 .31.21.67.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/>
+                                    </svg>
+
+                                    Continue with GitHub
+                                </a>
+                            </div>
 
                         </form>
                     </div>

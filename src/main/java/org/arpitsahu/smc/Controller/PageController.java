@@ -53,19 +53,19 @@ public class PageController {
 
     
 
-
+    //THIS IS REGISTRATION CONTROLLER
     //form here we are sending request for the form
     @GetMapping("/register")
     public String register(Model model){
         UserForms userform=new UserForms();
-        //we are sending an empty form to the html page so that we can bind the data to it when the form is submitted
+        //we are sending an empty form to the HTML page so that we can bind the data to it when the form is submitted
         //so it replaces the form with an empty object form and all the data is stored in that object that is later used to save the data in the database
         model.addAttribute("userform",userform);
         return "register";
     }
 
-    //provesing register
 
+    //processing registration
     @PostMapping("/do-register")//It tells Spring: **"When a POST request comes to `/do-register`, run this method."**
     public String processRegister(@Valid @ModelAttribute("userform") UserForms userform,BindingResult rBindingResult, HttpSession session){
         System.out.print("Registration successful!");

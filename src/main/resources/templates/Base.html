@@ -20,10 +20,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 </head>
 
-<body class="m-0 min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white transition-colors duration-300">
+<body class="m-0 min-h-screen bg- text-black dark:bg-gray-900 dark:text-white transition-colors duration-300">
 
-    <div th:replace="~{navbar::navbar}"></div>
-    <!-- ✅ ADD THIS — renders the child page's content -->
+    <!--If user is logged in :navbar-->
+    <div th:if="${LoggedInUser != null and LoggedInUser.name != null}">
+        <div th:replace="~{user/user_navbar::user_navbar}"></div>
+        <div th:replace="~{user/SideBar::sidebar}"></div>
+    </div>
+
+    <!--If user is not logged in : navbar   -->
+    <div th:unless="${LoggedInUser != null and LoggedInUser.name != null}">
+        <div th:replace="~{navbar::navbar}"></div>
+    </div>
+    <!-- renders the child page's content -->
     <th:block th:replace="${content}"></th:block>
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
