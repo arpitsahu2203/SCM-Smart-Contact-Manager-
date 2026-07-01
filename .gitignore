@@ -37,3 +37,7 @@ node_modules/
 
 ### Tailwind generated ###
 src/main/resources/static/css/output.css
+
+
+#Application properties
+src/main/resources/application.properties
