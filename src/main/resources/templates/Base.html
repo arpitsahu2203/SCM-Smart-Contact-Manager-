@@ -18,14 +18,14 @@
     <link rel="stylesheet" th:href="@{/css/output.css}">
     <link href="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 </head>
 
-<body class="m-0 min-h-screen bg- text-black dark:bg-gray-900 dark:text-white transition-colors duration-300">
+<body class="m-0 min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white transition-colors duration-300">
 
     <!--If user is logged in :navbar-->
     <div th:if="${LoggedInUser != null and LoggedInUser.name != null}">
         <div th:replace="~{user/user_navbar::user_navbar}"></div>
-        <div th:replace="~{user/SideBar::sidebar}"></div>
     </div>
 
     <!--If user is not logged in : navbar   -->

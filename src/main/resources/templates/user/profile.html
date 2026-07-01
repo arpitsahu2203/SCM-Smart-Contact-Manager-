@@ -6,9 +6,17 @@
     <title th:text="${LoggedInUser.name}+' | SCM'" ></title>
 </head>
 <body>
-<div th:fragment="content" id="content" class="p-6 ml-64">
-    <h1 class="text-2xl font-semibold text-heading">Profile page</h1>
-    <p class="mt-2 text-gray-600 dark:text-gray-300">You are successfully logged in!</p>
-</div>
+    <div id="content">
+        <!--Sidebar-->
+        <div th:if="${LoggedInUser != null}">
+            <div th:replace="~{user/SideBar::sidebar}"></div>
+        </div>
+
+
+        <div class="p-6 sm:ml-64 pt-16">
+            <h1 class="text-2xl font-semibold text-heading">Profile page</h1>
+            <p class="mt-2 text-gray-600 dark:text-gray-300">You are successfully logged in!</p>
+        </div>
+    </div>
 </body>
 </html>

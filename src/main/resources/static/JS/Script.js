@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentTheme = getTheme();
     updateButton(currentTheme);
     setupToggle();
+    setupUserMenu();
 
     function setupToggle() {
         const button = document.getElementById("themeToggleButton");
@@ -44,5 +45,25 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (e) {
             return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
         }
+    }
+
+    function setupUserMenu() {
+        const button = document.getElementById("user-menu-button");
+        const menu = document.getElementById("user-dropdown");
+
+        if (!button || !menu) return;
+
+        button.addEventListener("click", (event) => {
+            event.stopPropagation();
+            menu.classList.toggle("hidden");
+            button.setAttribute("aria-expanded", menu.classList.contains("hidden") ? "false" : "true");
+        });
+
+        document.addEventListener("click", (event) => {
+            if (!menu.classList.contains("hidden") && !menu.contains(event.target) && !button.contains(event.target)) {
+                menu.classList.add("hidden");
+                button.setAttribute("aria-expanded", "false");
+            }
+        });
     }
 });
