@@ -39,6 +39,7 @@ public class Contact {
     private String websiteLink;
     @Column(length=1000)
     private String description;
+    private String publicImageId;
 
     @ManyToOne
     private Users user;

@@ -5,6 +5,7 @@ import org.arpitsahu.smc.Helper.messageEnum;
 import org.arpitsahu.smc.Helper.messageHelper;
 import org.arpitsahu.smc.Services.UserService;
 import org.arpitsahu.smc.forms.UserForms;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,6 +68,8 @@ public class PageController {
 
     //processing registration
     @PostMapping("/do-register")//It tells Spring: **"When a POST request comes to `/do-register`, run this method."**
+    //Binding result hold the result of@Valid that validates the form
+    //Model Attribute: it takes the incoming data ie form aor any view and converts it to an object that can be further used
     public String processRegister(@Valid @ModelAttribute("userform") UserForms userform,BindingResult rBindingResult, HttpSession session){
         System.out.print("Registration successful!");
         //fetch data-->we will create a new class for receiveing data from the form
