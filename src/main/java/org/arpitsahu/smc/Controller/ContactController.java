@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.View;
 
+import java.util.List;
 import java.util.UUID;
 
 @RequestMapping("/SMC/user/Contact")
@@ -116,6 +117,16 @@ public class ContactController {
     }
 
 
+    @GetMapping("/view")
+    public String viewContacts(Model model,Authentication authentication, HttpSession session){
+        String username=Helper.getEmailOfLoggedInUser(authentication);
+
+        Users user= userService.getUserByEmail(username);
+        List<Contact> contacts =contactService.getByUser(user);
+
+        model.addAttribute("contacts",contacts);
+        return "user/contacts";
+    }
 
 
 }

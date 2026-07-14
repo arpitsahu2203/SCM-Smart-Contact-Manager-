@@ -1,6 +1,7 @@
 package org.arpitsahu.smc.Services;
 
 import org.arpitsahu.smc.Entities.Contact;
+import org.arpitsahu.smc.Entities.Users;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,5 +21,8 @@ public interface contactService {
     List<Contact> search(String name, String email, String phoneNumber);
 
     List<Contact> getByUserId(String id);
+
+    List<Contact> getByUser(Users user);
+
 
 }

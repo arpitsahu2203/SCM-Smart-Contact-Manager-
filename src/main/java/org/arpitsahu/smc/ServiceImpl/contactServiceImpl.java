@@ -1,10 +1,14 @@
 package org.arpitsahu.smc.ServiceImpl;
 
 import org.arpitsahu.smc.Entities.Contact;
+import org.arpitsahu.smc.Entities.Users;
 import org.arpitsahu.smc.Helper.ResourceNotFoundException;
 import org.arpitsahu.smc.Repository.contactRepo;
 import org.arpitsahu.smc.Services.contactService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -58,6 +62,11 @@ public class contactServiceImpl implements contactService {
     public List<Contact> getByUserId(String id) {
 
         return contactRepo.findByUserId(id);
+    }
+
+    @Override
+    public List<Contact> getByUser(Users user) {
+        return contactRepo.findByUser(user);
     }
 
 
