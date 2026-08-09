@@ -34,7 +34,6 @@ public class contactServiceImpl implements contactService {
         return null;
     }
 
-
     @Override
     public List<Contact> getAll() {
         return contactRepo.findAll();
@@ -47,10 +46,8 @@ public class contactServiceImpl implements contactService {
 
     @Override
     public void deleteContactById(String id) {
-
         Contact contact=contactRepo.findById(id).orElseThrow(()-> new ResourceNotFoundException("Contact not found with given id"+id));
         contactRepo.delete(contact);
-
     }
 
     @Override
@@ -60,14 +57,13 @@ public class contactServiceImpl implements contactService {
 
     @Override
     public List<Contact> getByUserId(String id) {
-
         return contactRepo.findByUserId(id);
     }
 
     @Override
-    public List<Contact> getByUser(Users user) {
-        return contactRepo.findByUser(user);
+    public Page<Contact> getByUser(Users user, int page, int size, String sortBy, String direction) {
+        Sort sort=direction.equals("desc")? Sort.by(sortBy).descending(): Sort.by(sortBy).ascending();
+        var pageable=PageRequest.of(page, size, sort);
+        return contactRepo.findByUser(user , pageable);
     }
-
-
 }

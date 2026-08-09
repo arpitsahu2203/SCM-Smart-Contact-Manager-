@@ -2,9 +2,9 @@ package org.arpitsahu.smc.Services;
 
 import org.arpitsahu.smc.Entities.Contact;
 import org.arpitsahu.smc.Entities.Users;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface contactService {
 
@@ -22,7 +22,5 @@ public interface contactService {
 
     List<Contact> getByUserId(String id);
 
-    List<Contact> getByUser(Users user);
-
-
+    Page<Contact> getByUser(Users user,int page, int size, String sortBy, String direction);
 }

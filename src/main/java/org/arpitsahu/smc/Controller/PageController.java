@@ -32,8 +32,6 @@ public class PageController {
 
     @GetMapping("/home")
     public String Home(Model mod){
-        mod.addAttribute("name","Arpit Sahu");
-        mod.addAttribute("work","Java Developer");
         return "home";
     }
 

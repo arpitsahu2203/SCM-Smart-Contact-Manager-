@@ -8,5 +8,6 @@ public class AppConstants {
     public static final int Contact_Image_Width=500;
     public static final int Contact_Image_Height=500;
     public static final String Contact_Image_Crop="fill";
+    public static final int Page_Size=5;
 
 }
