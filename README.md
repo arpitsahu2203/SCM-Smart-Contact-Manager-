@@ -1,6 +1,6 @@
 # Smart Contact Manager
 
-Smart Contact Manager is a Spring Boot web app for saving, organizing, and managing contacts with a clean Thymeleaf UI.
+Smart Contact Manager (SCM) — an enterprise-grade Spring Boot application for securely storing, organizing and sharing contacts. Features include OAuth2 (Google/GitHub), Cloudinary-backed image uploads, paginated search, and a responsive Thymeleaf + Tailwind frontend.
 
 ## Features
 
