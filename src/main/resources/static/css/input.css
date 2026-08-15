@@ -6,3 +6,56 @@
 @source "../node_modules/flowbite";
 
 @plugin "flowbite/plugin";
+
+@layer components {
+  #content article,
+  #content details,
+  #content form {
+    translate: 0 0;
+    transition: translate 220ms ease, border-color 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
+  }
+
+  @media (hover: hover) {
+    #content article:hover,
+    #content details:hover,
+    #content form:hover {
+      translate: 0 -6px;
+      border-color: var(--color-blue-400);
+      box-shadow: 0 16px 30px rgb(15 23 42 / 12%);
+    }
+
+    #content article:hover i {
+      scale: 1.1;
+    }
+  }
+
+  #content article i {
+    transition: scale 220ms ease;
+  }
+
+  #sidebar-multi-level-sidebar a,
+  footer a {
+    transition: color 180ms ease, background-color 180ms ease, translate 180ms ease;
+  }
+
+  @media (hover: hover) {
+    #sidebar-multi-level-sidebar a:hover {
+      translate: 4px 0;
+    }
+
+    footer a:hover {
+      translate: 0 -2px;
+    }
+
+    #content button:not([disabled]),
+    #content a[class*="bg-"] {
+      transition: translate 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+    }
+
+    #content button:not([disabled]):hover,
+    #content a[class*="bg-"]:hover {
+      translate: 0 -2px;
+      filter: brightness(1.03);
+    }
+  }
+}

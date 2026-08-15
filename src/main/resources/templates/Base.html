@@ -35,7 +35,35 @@
     <!-- renders the child page's content -->
     <th:block th:replace="${content}"></th:block>
 
+    <!-- Public site map -->
+    <footer th:unless="${LoggedInUser != null and LoggedInUser.name != null}" class="border-t border-slate-200 bg-white px-6 py-10 text-slate-600 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400 lg:px-8">
+        <div class="mx-auto grid max-w-7xl gap-8 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
+            <div>
+                <a th:href="@{/SMC/home}" class="inline-flex items-center gap-2 text-lg font-black tracking-wide text-slate-900 dark:text-white"><i class="fa-solid fa-address-book text-blue-600"></i>Smart Contact Manager</a>
+                <p class="mt-3 max-w-sm text-sm leading-6">A thoughtful, secure home for the people and details you want to remember.</p>
+            </div>
+            <div>
+                <h2 class="text-sm font-bold uppercase tracking-[.16em] text-slate-900 dark:text-white">Site map</h2>
+                <ul class="mt-4 space-y-2 text-sm"><li><a th:href="@{/SMC/home}" class="transition hover:text-blue-600">Home</a></li><li><a th:href="@{/SMC/about}" class="transition hover:text-blue-600">About</a></li><li><a th:href="@{/SMC/services}" class="transition hover:text-blue-600">Services</a></li><li><a th:href="@{/SMC/contact}" class="transition hover:text-blue-600">Contact</a></li></ul>
+            </div>
+            <div>
+                <h2 class="text-sm font-bold uppercase tracking-[.16em] text-slate-900 dark:text-white">Account</h2>
+                <ul class="mt-4 space-y-2 text-sm"><li><a th:href="@{/login}" class="transition hover:text-blue-600">Sign in</a></li><li><a th:href="@{/SMC/register}" class="transition hover:text-blue-600">Create account</a></li><li><a href="mailto:support@smartcontactmanager.com" class="transition hover:text-blue-600">Support</a></li></ul>
+            </div>
+        </div>
+        <div class="mx-auto mt-8 max-w-7xl border-t border-slate-200 pt-6 text-xs dark:border-slate-800">&copy; 2026 Smart Contact Manager. Built to help you stay connected.</div>
+    </footer>
+
+    <!-- Dashboard footer: offset from the fixed sidebar at sm and above. -->
+    <footer th:if="${LoggedInUser != null and LoggedInUser.name != null}" class="border-t border-slate-200 bg-white px-6 py-6 text-slate-500 transition-colors dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400 sm:ml-64 lg:px-8">
+        <div class="mx-auto flex max-w-7xl flex-col gap-3 text-sm sm:flex-row sm:items-center sm:justify-between">
+            <p>&copy; 2026 Smart Contact Manager</p>
+            <div class="flex flex-wrap gap-x-5 gap-y-2"><a th:href="@{/SMC/user/dashboard}" class="font-medium transition hover:text-blue-600">Dashboard</a><a th:href="@{/SMC/user/Contact/view}" class="font-medium transition hover:text-blue-600">Contacts</a><a th:href="@{/SMC/user/profile}" class="font-medium transition hover:text-blue-600">Profile</a><a href="mailto:support@smartcontactmanager.com" class="font-medium transition hover:text-blue-600">Support</a></div>
+        </div>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script th:src="@{/JS/Script.js}"></script>
 
 </body>
