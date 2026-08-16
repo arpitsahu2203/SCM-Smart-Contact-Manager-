@@ -9,16 +9,14 @@
 
 @layer components {
   #content article,
-  #content details,
-  #content form {
+  #content details {
     translate: 0 0;
     transition: translate 220ms ease, border-color 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
   }
 
   @media (hover: hover) {
     #content article:hover,
-    #content details:hover,
-    #content form:hover {
+    #content details:hover {
       translate: 0 -6px;
       border-color: var(--color-blue-400);
       box-shadow: 0 16px 30px rgb(15 23 42 / 12%);

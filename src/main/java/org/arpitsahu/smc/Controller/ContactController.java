@@ -60,6 +60,10 @@ public class ContactController {
         Users user= userService.getUserByEmail(username);
 
         Logger logger= LoggerFactory.getLogger(this.getClass());
+        if (contactForm.getContactImage() == null || contactForm.getContactImage().isEmpty()) {
+            session.setAttribute("message", messageHelper.builder().type(messageEnum.red).content("Contact image is required").build());
+            return "user/AddContact";
+        }
         logger.info("Contact form received: {}", contactForm.getContactImage().getOriginalFilename());
 
         if(bindingResult.hasErrors()){

@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const hero = page.querySelector("section:first-child");
         const heroText = hero ? hero.querySelectorAll("h1, h2, p, a, button") : [];
         const sections = page.querySelectorAll("section");
-        const cards = page.querySelectorAll("article, form, details");
+        const cards = page.querySelectorAll("article, details");
 
         // Run all entrance effects together. This avoids holding later page
         // blocks invisible while earlier elements finish their animation.
