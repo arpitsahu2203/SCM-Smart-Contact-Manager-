@@ -2,6 +2,22 @@
 
 Smart Contact Manager (SCM) — an enterprise-grade Spring Boot application for securely storing, organizing and sharing contacts. Features include OAuth2 (Google/GitHub), Cloudinary-backed image uploads, paginated search, and a responsive Thymeleaf + Tailwind frontend.
 
+## Screenshots
+
+<div align="center">
+  <img src="docs/screenshots/landing-page.png" alt="SCM landing page" width="900" />
+  <p><em>Landing page</em></p>
+
+  <img src="docs/screenshots/about-page.png" alt="SCM about page" width="900" />
+  <p><em>About section</em></p>
+
+  <img src="docs/screenshots/contacts-dashboard.png" alt="SCM contacts dashboard" width="900" />
+  <p><em>Contact dashboard</em></p>
+
+  <img src="docs/screenshots/features-section.png" alt="SCM feature highlights" width="900" />
+  <p><em>Feature highlights</em></p>
+</div>
+
 ## Features
 
 - User registration and login
