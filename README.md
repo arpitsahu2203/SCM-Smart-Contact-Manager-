@@ -203,25 +203,13 @@ Using the included Maven wrapper:
 
 **Linux / macOS:**
 ```bash
-./mvnw clean spring-boot:run
+mvn clean package
 ```
 
-The application will start on **`http://localhost:8080`**.
+## ScreenShots
 
----
+![home page](C:\Users\USER\OneDrive\Pictures\Screenshots 1\Screenshot 2026-08-20 163456.png)   
 
-## ⌨️ Shortcuts & Micro-Interactions
+## License
 
-| Shortcut / Action | Scope | Description |
-| :--- | :--- | :--- |
-| `Ctrl + K` or `/` | Global (Authenticated) | Focus and highlight the quick contact search input |
-| `Click` on phone/email | Contacts Directory | Instantly copies text to clipboard with toast notification |
-| `★ Favorites` Tab | Contacts Directory | Filters visible table rows down to starred connections |
-| `Esc` | Quick-View Modal | Closes active contact profile dialog |
-| `Sun / Moon` Icon | Top Navigation | Toggles between Dark Mode and Light Mode |
-
----
-
-## 📄 License
-
-This project is licensed under the [MIT License](LICENSE).
+No license has been specified.
