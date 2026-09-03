@@ -1,4 +1,3 @@
-git restore src/main/resources/static/css/output.cssHELP.md
 target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
@@ -38,6 +37,12 @@ node_modules/
 ### Tailwind generated ###
 src/main/resources/static/css/output.css
 
+### Environment & Secrets ###
+.env
+.env.*
+!.env.example
 
-#Application properties
-src/main/resources/application.properties
+### Screenshots & Secret Images ###
+/*.png
+/*.jpg
+/*.jpeg

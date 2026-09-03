@@ -3,100 +3,309 @@
       xmlns:th="http://www.thymeleaf.org"
       th:replace="~{Base::parent(~{::#content},~{::title})}">
 <head>
-    <title th:text="${LoggedInUser.name}+' | Contacts'" ></title>
+    <title th:text="${LoggedInUser != null ? LoggedInUser.name + ' | Contacts' : 'Contacts'}">Contacts</title>
 </head>
 <body>
 <div id="content">
+    <!-- Sidebar Fragment -->
     <div th:if="${LoggedInUser != null}">
         <div th:replace="~{user/SideBar::sidebar}"></div>
     </div>
 
-    <div class="min-h-[calc(100vh-4rem)] p-6 pt-20 sm:ml-64">
-        <h1 class="text-2xl font-semibold text-heading">Contacts</h1>
-        <p class="mt-2 text-gray-600 dark:text-gray-300">All contacts are viewed here</p>
-        <div class="contacts_container mt-3">
-            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <div class="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-gray-50 dark:bg-gray-900">
+    <!-- Main Content Area with Clean 96px Top Clearance -->
+    <div class="md:ml-64 min-h-screen px-4 sm:px-8 pb-12 pt-24">
+        <div class="max-w-7xl mx-auto w-full space-y-6">
 
-                    <label for="table-search" class="sr-only">Search</label>
-                    <div class="relative mr-3 mt-3">
-                        <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                            </svg>
-                        </div>
-                        <input type="text" id="table-search-users" class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for users">
-                    </div>
+            <!-- Page Header & Action Controls -->
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-slate-200 dark:border-slate-800">
+                <div>
+                    <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Contacts Directory</h1>
+                    <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Search, filter, and manage all your stored connections.</p>
                 </div>
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th scope="col" class="px-6 py-3">Name</th>
-                        <th scope="col" class="px-6 py-3">Phone</th>
-                        <th scope="col" class="px-6 py-3">Links</th>
-                        <th scope="col" class="px-6 py-3">Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="c:${pageContacts.getContent()}" th:object="${c}" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                            <img class="w-10 h-10 rounded-full" th:src="${c.picture}" alt="Contact image">
-                            <div class="ps-3">
-                                <div class="text-base font-semibold" th:text="*{name}">Neil Sims</div>
-                                <div class="font-normal text-gray-500" th:text="*{email}">neil.sims@flowbite.com</div>
-                            </div>
-                        </th>
-                        <td class="px-6 py-4" th:text="*{phoneNumber}">React Developer</td>
-                        <td class="px-6 py-4">
-                            <div class="flex items-center">
-                                <div th:if="*{favorite}" class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>
-                                <a th:href="*{websiteLink}"><i class="fa-solid fa-link w-4 h-4"></i></a>
-                                <a th:href="*{instagramLink}"><i class="fa-brands fa-instagram w-4 h-4"></i></a>
-                                <a th:href="*{twitterLink}"><i class="fa-brands fa-x-twitter w-4 h-4"></i></a>
-                                <a th:href="*{linkedinLink}"><i class="fa-brands fa-linkedin w-4 h-4"></i></a>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4">
-                            <a class="p-1"><i class="fa-solid fa-trash h-4 w-4"></i></a>
-                            <a class="p-1"><i class="fa-solid fa-pen-to-square h-4 w-4"></i></a>
-                            <a class="p-1"><i class="fa-solid fa-eye h-4 w-4"></i></a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div class="flex items-center gap-3">
+                    <a th:href="@{/SMC/user/Contact/add}"
+                       class="btn-primary-gradient bg-blue-600 text-white inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-xl shadow-md shadow-blue-500/25 hover:bg-blue-700 active:scale-[0.98] transition-all">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                        </svg>
+                        <span class="text-white font-semibold">Add Contact</span>
+                    </a>
+                </div>
+            </div>
 
-                <div class="pagination p-3 flex justify-center">
-                    <nav aria-label="Page navigation example">
-                        <ul class="flex items-center -space-x-px h-8 text-sm">
-                            <li th:unless="${pageContacts.isFirst()}">
-                                <a th:href="@{'/SMC/user/Contact/view?size='+${pageSize}+'&page='+${pageContacts.number-1}}" class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                    <span class="sr-only">Previous</span>
-                                    <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+            <!-- Interactive Toolbar & Filter Chips -->
+            <div class="glass-panel p-3.5 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 w-full">
+                <!-- Search Input with Live Filter -->
+                <div class="relative w-full sm:w-88">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none text-slate-400">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/>
+                        </svg>
+                    </div>
+                    <input type="text" id="contact-search-input"
+                           class="w-full py-2 ps-9 pe-4 text-xs rounded-xl border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-800 dark:bg-slate-900 dark:text-white dark:placeholder:text-slate-500 transition-all"
+                           placeholder="Filter by name, phone or email... (Instant search)">
+                </div>
+
+                <!-- Quick Filter Tabs & Live Counter -->
+                <div class="flex items-center gap-2">
+                    <span id="live-search-counter" class="text-[11px] font-mono text-slate-400 hidden sm:inline-block me-2"></span>
+                    <button type="button" id="filter-all-btn"
+                            class="px-3.5 py-1.5 text-xs font-semibold rounded-xl bg-blue-600 text-white shadow-xs transition-all hover:scale-[1.02] active:scale-[0.98]">
+                        All (<span th:text="${pageContacts != null ? pageContacts.totalElements : 0}">0</span>)
+                    </button>
+                    <button type="button" id="filter-fav-btn"
+                            class="px-3.5 py-1.5 text-xs font-semibold rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 transition-all hover:scale-[1.02] active:scale-[0.98]">
+                        ★ Favorites
+                    </button>
+                </div>
+            </div>
+
+            <!-- Contacts Table Container -->
+            <div class="glass-panel rounded-2xl overflow-hidden shadow-xs w-full">
+                <div class="relative overflow-x-auto w-full">
+                    <table class="w-full text-xs text-left text-slate-600 dark:text-slate-300" id="contacts-table">
+                        <thead class="text-[11px] uppercase tracking-wider bg-slate-100/70 dark:bg-slate-900/70 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
+                        <tr>
+                            <th scope="col" class="px-5 py-3.5">Contact</th>
+                            <th scope="col" class="px-5 py-3.5">Phone (Click to copy)</th>
+                            <th scope="col" class="px-5 py-3.5 hidden md:table-cell">Social Channels</th>
+                            <th scope="col" class="px-5 py-3.5 text-right">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 dark:divide-slate-800" id="contacts-table-body">
+                        <!-- Contact Row -->
+                        <tr th:each="c : ${pageContacts.getContent()}"
+                            class="table-row-hover contact-item-row transition-opacity duration-150"
+                            th:attr="data-name=${c.name},
+                                     data-email=${c.email},
+                                     data-phone=${c.phoneNumber},
+                                     data-picture=${c.picture != null and !c.picture.isEmpty() ? c.picture : '/Images/profile-svgrepo-com.svg'},
+                                     data-address=${c.address},
+                                     data-description=${c.description},
+                                     data-favorite=${c.favorite},
+                                     data-linkedin=${c.linkedinLink},
+                                     data-website=${c.websiteLink},
+                                     data-twitter=${c.twitterLink},
+                                     data-id=${c.id}">
+
+                            <!-- Contact Name & Avatar -->
+                            <td class="px-5 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center gap-3">
+                                    <div class="relative shrink-0">
+                                        <img class="w-10 h-10 rounded-full object-cover border border-slate-200 dark:border-slate-700"
+                                             th:src="${c.picture != null and !c.picture.isEmpty() ? c.picture : '/Images/profile-svgrepo-com.svg'}"
+                                             onerror="this.onerror=null;this.src='/Images/profile-svgrepo-com.svg';"
+                                             alt="Contact photo">
+                                        <span th:if="${c.favorite}" class="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-amber-400 text-black text-[9px] font-bold shadow-xs animate-bounce">
+                                            ★
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <div class="font-semibold text-slate-900 dark:text-white" th:text="${c.name}">Contact Name</div>
+                                        <div class="text-[11px] text-slate-400 dark:text-slate-500 flex items-center gap-1 group/email cursor-pointer copy-trigger"
+                                             th:attr="data-copy=${c.email}" title="Click to copy email">
+                                            <span th:text="${c.email}">email@domain.com</span>
+                                            <svg class="w-3 h-3 opacity-0 group-hover/email:opacity-100 transition-opacity text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <!-- Phone Column (Interactive Copy) -->
+                            <td class="px-5 py-3.5 whitespace-nowrap">
+                                <button type="button" th:if="${c.phoneNumber != null and !c.phoneNumber.isEmpty()}"
+                                        class="copy-trigger font-mono text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 inline-flex items-center gap-1.5 transition-colors group/phone"
+                                        th:attr="data-copy=${c.phoneNumber}" title="Click to copy phone number">
+                                    <svg class="w-3.5 h-3.5 text-slate-400 group-hover/phone:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                                     </svg>
+                                    <span th:text="${c.phoneNumber}">+1 234 567 890</span>
+                                    <span class="copy-badge text-[10px] text-emerald-500 font-sans hidden">✓ Copied</span>
+                                </button>
+                                <span th:unless="${c.phoneNumber != null and !c.phoneNumber.isEmpty()}" class="text-slate-400 italic">No phone</span>
+                            </td>
+
+                            <!-- Social Links Column -->
+                            <td class="px-5 py-3.5 whitespace-nowrap hidden md:table-cell">
+                                <div class="flex items-center gap-2">
+                                    <a th:if="${c.websiteLink != null and !c.websiteLink.isEmpty()}" th:href="${c.websiteLink}" target="_blank" rel="noopener noreferrer"
+                                       class="w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 flex items-center justify-center transition-all hover:scale-110"
+                                       title="Website">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                        </svg>
+                                    </a>
+                                    <a th:if="${c.linkedinLink != null and !c.linkedinLink.isEmpty()}" th:href="${c.linkedinLink}" target="_blank" rel="noopener noreferrer"
+                                       class="w-7 h-7 rounded-lg bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center transition-all hover:scale-110"
+                                       title="LinkedIn">
+                                        <span class="font-bold text-[11px]">in</span>
+                                    </a>
+                                    <a th:if="${c.twitterLink != null and !c.twitterLink.isEmpty()}" th:href="${c.twitterLink}" target="_blank" rel="noopener noreferrer"
+                                       class="w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-black dark:hover:text-white flex items-center justify-center transition-all hover:scale-110"
+                                       title="X / Twitter">
+                                        <span class="font-black text-[11px]">𝕏</span>
+                                    </a>
+                                </div>
+                            </td>
+
+                            <!-- Action Buttons -->
+                            <td class="px-5 py-3.5 whitespace-nowrap text-right">
+                                <div class="inline-flex items-center gap-1">
+                                    <button type="button"
+                                            class="view-contact-btn p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-xl transition-all hover:scale-110"
+                                            title="View contact profile modal">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Empty State Component -->
+                <div id="no-results-empty-state" class="hidden py-12 px-4 text-center">
+                    <div class="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400 flex items-center justify-center mx-auto mb-3">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-sm font-semibold text-slate-900 dark:text-white">No matching contacts</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Try adjusting your search keywords or filter options.</p>
+                </div>
+
+                <!-- Pagination Bar -->
+                <div class="px-5 py-3.5 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs w-full"
+                     th:if="${pageContacts != null and pageContacts.totalPages > 1}">
+                    <p class="text-slate-500 dark:text-slate-400">
+                        Showing page <span class="font-bold text-slate-900 dark:text-white" th:text="${pageContacts.number + 1}">1</span> of <span class="font-bold text-slate-900 dark:text-white" th:text="${pageContacts.totalPages}">1</span>
+                    </p>
+                    <nav aria-label="Table navigation">
+                        <ul class="inline-flex items-center gap-1">
+                            <li th:unless="${pageContacts.isFirst()}">
+                                <a th:href="@{'/SMC/user/Contact/view?size='+${pageSize}+'&page='+${pageContacts.number-1}}"
+                                   class="px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                                    Previous
                                 </a>
                             </li>
-                            <li th:each="index : ${#numbers.sequence(0,pageContacts.totalPages-1)}">
+                            <li th:each="index : ${#numbers.sequence(0, pageContacts.totalPages-1)}">
                                 <a th:href="@{'/SMC/user/Contact/view?size='+${pageSize}+'&page='+${index}}"
-                                   th:classappend="${index == pageContacts.number} ? 'bg-blue-50 dark:bg-grey-700' : 'bg-white text-gray-500 dark:bg-gray-800 dark:text-gray-400'"
-                                   class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                    <span th:text="${index+1}"></span>
-                                </a>
+                                   th:classappend="${index == pageContacts.number} ? 'bg-blue-600 text-white border-blue-600 font-bold' : 'border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800'"
+                                   class="px-2.5 py-1 rounded-lg border transition-colors"
+                                   th:text="${index + 1}">1</a>
                             </li>
                             <li th:unless="${pageContacts.isLast()}">
-                                <a th:href="@{'/SMC/user/Contact/view?size='+${pageSize}+'&page='+${pageContacts.number+1}}" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                    <span class="sr-only">Next</span>
-                                    <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                                    </svg>
+                                <a th:href="@{'/SMC/user/Contact/view?size='+${pageSize}+'&page='+${pageContacts.number+1}}"
+                                   class="px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                                    Next
                                 </a>
                             </li>
                         </ul>
                     </nav>
                 </div>
             </div>
+
         </div>
     </div>
+
+    <!-- Flowbite Accessible Contact Profile Quick-View Modal -->
+    <div id="contact-profile-modal" tabindex="-1" aria-hidden="true"
+         class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full flex items-center justify-center bg-black/60 backdrop-blur-sm transition-all duration-200">
+        <div class="relative w-full max-w-md max-h-full scale-95 transition-transform duration-200" id="modal-container-card">
+            <div class="relative bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+                <!-- Top Gradient Banner -->
+                <div class="h-20 bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 relative">
+                    <button type="button" id="close-contact-modal-btn"
+                            class="absolute top-3 right-3 text-white/80 hover:text-white bg-black/20 hover:bg-black/30 rounded-full w-7 h-7 inline-flex items-center justify-center transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="px-6 pb-6 pt-0 text-center -mt-10">
+                    <!-- Avatar with Glowing Halo -->
+                    <div class="relative inline-block mx-auto mb-3">
+                        <img id="modal-contact-picture"
+                             class="w-20 h-20 rounded-full object-cover border-4 border-white dark:border-slate-900 avatar-halo bg-slate-200"
+                             src="/Images/profile-svgrepo-com.svg" alt="Contact Avatar">
+                        <span id="modal-contact-star" class="hidden absolute bottom-0 right-0 bg-amber-400 text-black text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-white dark:border-slate-900 shadow-sm">
+                            ★
+                        </span>
+                    </div>
+
+                    <h3 id="modal-contact-name" class="text-lg font-bold text-slate-900 dark:text-white">Contact Name</h3>
+                    <p id="modal-contact-email" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">contact@domain.com</p>
+
+                    <!-- Communication Triggers -->
+                    <div class="grid grid-cols-2 gap-2.5 mt-4">
+                        <a id="modal-call-btn" href="#"
+                           class="btn-primary-gradient bg-blue-600 text-white py-2.5 px-3 rounded-xl text-xs font-semibold inline-flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-transform">
+                            <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            </svg>
+                            <span class="text-white">Call</span>
+                        </a>
+                        <a id="modal-email-btn" href="#"
+                           class="py-2.5 px-3 rounded-xl text-xs font-semibold inline-flex items-center justify-center gap-2 border border-slate-200 dark:border-slate-700 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 hover:scale-[1.02] active:scale-[0.98] transition-all">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            <span>Send Email</span>
+                        </a>
+                    </div>
+
+                    <!-- Details Box -->
+                    <div class="mt-4 p-3.5 bg-slate-50 dark:bg-slate-800/50 rounded-xl text-left border border-slate-200 dark:border-slate-800 space-y-2.5">
+                        <div>
+                            <p class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Phone</p>
+                            <p id="modal-contact-phone" class="text-xs font-mono font-medium text-slate-800 dark:text-slate-200 mt-0.5">+1 234 567 890</p>
+                        </div>
+                        <div id="modal-address-container">
+                            <p class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Address</p>
+                            <p id="modal-contact-address" class="text-xs text-slate-700 dark:text-slate-300 mt-0.5">Address details</p>
+                        </div>
+                        <div id="modal-desc-container">
+                            <p class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Notes</p>
+                            <p id="modal-contact-desc" class="text-xs text-slate-600 dark:text-slate-400 mt-0.5 italic">No notes</p>
+                        </div>
+                    </div>
+
+                    <!-- Social Handles -->
+                    <div class="mt-4 flex items-center justify-center gap-2" id="modal-socials-container">
+                        <a id="modal-linkedin-btn" href="#" target="_blank"
+                           class="px-3 py-1 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 text-xs font-semibold inline-flex items-center gap-1.5 transition-transform hover:scale-105">
+                            <span>LinkedIn</span>
+                        </a>
+                        <a id="modal-website-btn" href="#" target="_blank"
+                           class="px-3 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-semibold inline-flex items-center gap-1.5 transition-transform hover:scale-105">
+                            <span>Website</span>
+                        </a>
+                        <a id="modal-twitter-btn" href="#" target="_blank"
+                           class="px-3 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white text-xs font-semibold inline-flex items-center gap-1.5 transition-transform hover:scale-105">
+                            <span>𝕏</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Interactive Toast Notification -->
+    <div id="app-toast" class="fixed bottom-6 right-6 z-50 hidden transition-all duration-300 translate-y-4 opacity-0">
+        <div class="glass-panel px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2.5 text-xs font-semibold text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-800">
+            <span class="flex h-2 w-2 rounded-full bg-emerald-500"></span>
+            <span id="app-toast-text">Notification</span>
+        </div>
+    </div>
+
 </div>
 </body>
 </html>

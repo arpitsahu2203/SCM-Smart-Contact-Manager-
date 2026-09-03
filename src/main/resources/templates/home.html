@@ -1,37 +1,211 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{Base::parent(~{::#content},~{::title})}">
-<head><title>Smart Contact Manager</title></head>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{Base::parent(~{::#content},~{::title})}">
+<head>
+    <title>Smart Contact Manager | Organize Your Connections</title>
+</head>
 <body>
-<main id="content" class="overflow-hidden bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-white">
-  <section class="relative isolate min-h-[calc(100vh-72px)]">
-    <div class="absolute inset-x-0 top-0 -z-10 h-[42rem] overflow-hidden"><div class="absolute -left-24 -top-32 h-96 w-96 rounded-full bg-blue-300/35 blur-3xl dark:bg-blue-700/25"></div><div class="absolute right-0 top-20 h-80 w-80 rounded-full bg-cyan-200/50 blur-3xl dark:bg-cyan-700/20"></div></div>
-    <div class="mx-auto grid min-h-[calc(100vh-72px)] max-w-7xl items-center gap-16 px-6 pb-28 pt-20 lg:grid-cols-[1.05fr_.95fr] lg:px-8 lg:pb-36 lg:pt-28">
-      <div class="max-w-2xl">
-        <div class="mb-7 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white/75 px-3 py-1.5 text-sm font-semibold text-blue-700 shadow-sm backdrop-blur dark:border-blue-800 dark:bg-slate-900/70 dark:text-blue-300"><span class="h-2 w-2 rounded-full bg-emerald-500"></span>Your contacts, beautifully organized</div>
-        <h1 class="text-5xl font-black leading-[1.08] tracking-wide text-slate-950 sm:text-6xl lg:text-7xl dark:text-white">Every relationship,<br><span class="text-blue-600 dark:text-blue-400">right at hand.</span></h1>
-        <p class="mt-8 max-w-2xl text-lg leading-9 tracking-wide text-slate-600 dark:text-slate-300">Smart Contact Manager gives you one calm, secure place to save the people who matter and keep every conversation within reach.</p>
-        <div class="mt-9 flex flex-col gap-3 sm:flex-row"><a th:href="@{/SMC/register}" class="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 font-bold text-white shadow-lg shadow-blue-600/25 transition hover:-translate-y-0.5 hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900">Get started for free <i class="fa-solid fa-arrow-right text-sm"></i></a><a th:href="@{/login}" class="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white/75 px-6 py-3.5 font-bold text-slate-700 transition hover:bg-white dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-200 dark:hover:bg-slate-800">Sign in to your account</a></div>
-        <div class="mt-9 flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400"><div class="flex -space-x-2"><span class="grid h-8 w-8 place-items-center rounded-full border-2 border-white bg-amber-300 text-xs font-bold text-amber-950 dark:border-slate-950">A</span><span class="grid h-8 w-8 place-items-center rounded-full border-2 border-white bg-rose-300 text-xs font-bold text-rose-950 dark:border-slate-950">S</span><span class="grid h-8 w-8 place-items-center rounded-full border-2 border-white bg-violet-300 text-xs font-bold text-violet-950 dark:border-slate-950">R</span></div>Trusted to keep connections organized.</div>
-      </div>
-      <div class="relative mx-auto w-full max-w-xl lg:max-w-none"><div class="absolute -inset-4 -z-10 rounded-[2.5rem] bg-blue-500/15 blur-2xl"></div><div class="rounded-[1.75rem] border border-white/80 bg-white/90 p-4 shadow-2xl shadow-slate-900/15 backdrop-blur dark:border-slate-700 dark:bg-slate-900/90"><div class="flex items-center justify-between border-b border-slate-100 px-2 pb-4 dark:border-slate-800"><div class="flex items-center gap-3"><span class="grid h-10 w-10 place-items-center rounded-xl bg-blue-600 text-lg text-white"><i class="fa-solid fa-address-book"></i></span><div><p class="font-bold">My contacts</p><p class="text-xs text-slate-500">248 people</p></div></div><span class="grid h-9 w-9 place-items-center rounded-lg bg-blue-600 text-white"><i class="fa-solid fa-plus"></i></span></div><div class="my-4 flex items-center gap-2 rounded-xl bg-slate-100 px-4 py-3 text-sm text-slate-400 dark:bg-slate-800"><i class="fa-solid fa-magnifying-glass"></i><span>Search your contacts</span></div><div class="space-y-2"><div class="flex items-center gap-3 rounded-xl p-2 transition hover:bg-slate-50 dark:hover:bg-slate-800"><span class="grid h-11 w-11 place-items-center rounded-full bg-rose-200 font-bold text-rose-800">M</span><div class="min-w-0 flex-1"><p class="font-bold">Maya Singh</p><p class="truncate text-sm text-slate-500">maya@northstar.co</p></div><i class="fa-solid fa-ellipsis text-slate-400"></i></div><div class="flex items-center gap-3 rounded-xl bg-blue-50 p-2 dark:bg-blue-950/40"><span class="grid h-11 w-11 place-items-center rounded-full bg-amber-200 font-bold text-amber-800">D</span><div class="min-w-0 flex-1"><p class="font-bold">Daniel Cooper</p><p class="truncate text-sm text-slate-500">+1 415 555 0123</p></div><span class="h-2.5 w-2.5 rounded-full bg-emerald-500"></span></div><div class="flex items-center gap-3 rounded-xl p-2 transition hover:bg-slate-50 dark:hover:bg-slate-800"><span class="grid h-11 w-11 place-items-center rounded-full bg-violet-200 font-bold text-violet-800">N</span><div class="min-w-0 flex-1"><p class="font-bold">Nina Patel</p><p class="truncate text-sm text-slate-500">nina@studioform.com</p></div><i class="fa-solid fa-ellipsis text-slate-400"></i></div></div></div><div class="absolute -bottom-7 -left-5 rounded-2xl border border-white bg-white px-4 py-3 shadow-xl dark:border-slate-700 dark:bg-slate-800 sm:-left-10"><p class="text-xs font-semibold text-slate-500">CONTACTS ADDED</p><p class="mt-1 text-xl font-black text-slate-900 dark:text-white">+24 <span class="text-sm font-bold text-emerald-500">this week</span></p></div></div>
-    </div>
-  </section>
-  <section class="border-y border-slate-200 bg-white py-20 dark:border-slate-800 dark:bg-slate-900/50"><div class="mx-auto max-w-7xl px-6 lg:px-8"><div class="mx-auto max-w-2xl text-center"><p class="font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">Everything in one place</p><h2 class="mt-4 text-3xl font-black tracking-tight sm:text-4xl">A better way to remember people.</h2></div><div class="mt-12 grid gap-5 md:grid-cols-3"><article class="rounded-2xl border border-slate-200 p-7 dark:border-slate-800"><span class="grid h-12 w-12 place-items-center rounded-xl bg-blue-100 text-blue-600 dark:bg-blue-950 dark:text-blue-300"><i class="fa-solid fa-user-plus"></i></span><h3 class="mt-5 text-xl font-bold">Keep every detail</h3><p class="mt-2 leading-7 text-slate-600 dark:text-slate-400">Save phone numbers, emails, notes, and the small details that make a connection meaningful.</p></article><article class="rounded-2xl border border-slate-200 p-7 dark:border-slate-800"><span class="grid h-12 w-12 place-items-center rounded-xl bg-violet-100 text-violet-600 dark:bg-violet-950 dark:text-violet-300"><i class="fa-solid fa-magnifying-glass"></i></span><h3 class="mt-5 text-xl font-bold">Find anyone fast</h3><p class="mt-2 leading-7 text-slate-600 dark:text-slate-400">Search your growing network in seconds, whenever you need the right person.</p></article><article class="rounded-2xl border border-slate-200 p-7 dark:border-slate-800"><span class="grid h-12 w-12 place-items-center rounded-xl bg-emerald-100 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-300"><i class="fa-solid fa-shield-halved"></i></span><h3 class="mt-5 text-xl font-bold">Your data, protected</h3><p class="mt-2 leading-7 text-slate-600 dark:text-slate-400">Your private contact list stays securely tied to your account.</p></article></div></div></section>
-  <section class="px-6 py-20 lg:px-8"><div class="mx-auto max-w-5xl rounded-3xl bg-blue-600 px-6 py-14 text-center text-white shadow-xl shadow-blue-600/20 sm:px-12"><h2 class="text-3xl font-black tracking-tight sm:text-4xl">Make room for the people who matter.</h2><p class="mx-auto mt-4 max-w-xl text-blue-100">Create your free Smart Contact Manager account and bring your network into focus.</p><a th:href="@{/SMC/register}" class="mt-8 inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3.5 font-bold text-blue-700 transition hover:bg-blue-50">Create your account <i class="fa-solid fa-arrow-right text-sm"></i></a></div></section>
-  <section class="bg-slate-900 px-6 py-20 text-white dark:bg-black lg:px-8">
-    <div class="mx-auto max-w-7xl">
-      <div class="grid gap-12 lg:grid-cols-[.85fr_1.15fr] lg:items-center">
-        <div><p class="text-sm font-bold uppercase tracking-[0.22em] text-blue-300">Simple by design</p><h2 class="mt-4 text-3xl font-black leading-tight tracking-wide sm:text-4xl">From a name to a lasting connection in three small steps.</h2><p class="mt-5 max-w-lg leading-8 tracking-wide text-slate-300">No complicated setup or scattered notes. Keep your important people organized from the moment you sign in.</p></div>
-        <div class="grid gap-4 sm:grid-cols-3">
-          <article class="rounded-2xl border border-white/10 bg-white/5 p-6"><span class="text-sm font-black text-blue-300">01</span><i class="fa-solid fa-user-plus mt-6 block text-2xl text-white"></i><h3 class="mt-5 font-bold">Add a contact</h3><p class="mt-2 text-sm leading-6 text-slate-400">Save the details you never want to lose.</p></article>
-          <article class="rounded-2xl border border-white/10 bg-white/5 p-6"><span class="text-sm font-black text-blue-300">02</span><i class="fa-solid fa-pen-to-square mt-6 block text-2xl text-white"></i><h3 class="mt-5 font-bold">Make it yours</h3><p class="mt-2 text-sm leading-6 text-slate-400">Add notes and context that make every profile useful.</p></article>
-          <article class="rounded-2xl border border-white/10 bg-white/5 p-6"><span class="text-sm font-black text-blue-300">03</span><i class="fa-solid fa-bolt mt-6 block text-2xl text-white"></i><h3 class="mt-5 font-bold">Pick up quickly</h3><p class="mt-2 text-sm leading-6 text-slate-400">Search your list and reconnect with confidence.</p></article>
+<main id="content" class="overflow-hidden">
+
+    <!-- Hero Section with Ambient Glow -->
+    <section class="relative min-h-[calc(100vh-4rem)] flex items-center pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+
+            <!-- Left: Hero Messaging -->
+            <div class="lg:col-span-6 space-y-6 text-left">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>Smart Contact Manager 2.0</span>
+                </div>
+
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.12]">
+                    Every connection, <br/>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600">
+                        organized & accessible.
+                    </span>
+                </h1>
+
+                <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed">
+                    A calm, fast, and secure personal contact directory. Save names, phone numbers, addresses, and social links with instant search and Cloudinary-backed photo sync.
+                </p>
+
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+                    <a th:href="@{/SMC/register}"
+                       class="btn-primary-gradient bg-blue-600 text-white px-6 py-3 text-xs font-semibold rounded-xl inline-flex items-center justify-center gap-2 shadow-md shadow-blue-500/25 hover:bg-blue-700 transition-all">
+                        <span class="text-white font-semibold">Get Started Free</span>
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        </svg>
+                    </a>
+                    <a th:href="@{/login}"
+                       class="px-6 py-3 text-xs font-semibold rounded-xl border border-slate-300 dark:border-slate-800 bg-white hover:bg-slate-50 dark:bg-slate-900/80 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100 inline-flex items-center justify-center shadow-xs transition-colors">
+                        Sign in to account
+                    </a>
+                </div>
+
+                <!-- Proof points -->
+                <div class="flex items-center gap-3 pt-4 text-xs text-slate-500 dark:text-slate-400">
+                    <div class="flex -space-x-1.5">
+                        <span class="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-white text-[10px] font-bold border border-white dark:border-slate-900">A</span>
+                        <span class="w-6 h-6 rounded-full bg-indigo-500 flex items-center justify-center text-white text-[10px] font-bold border border-white dark:border-slate-900">M</span>
+                        <span class="w-6 h-6 rounded-full bg-violet-500 flex items-center justify-center text-white text-[10px] font-bold border border-white dark:border-slate-900">S</span>
+                    </div>
+                    <span>Zero clutter · OAuth Google & GitHub · Cloudinary Media</span>
+                </div>
+            </div>
+
+            <!-- Right: Interactive Product Preview Card -->
+            <div class="lg:col-span-6 relative">
+                <div class="glass-panel p-5 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 space-y-4">
+                    <!-- Card Top Header -->
+                    <div class="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-slate-900 dark:text-white">Active Directory</p>
+                                <p class="text-[10px] text-slate-400">142 contacts saved</p>
+                            </div>
+                        </div>
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                            Synced
+                        </span>
+                    </div>
+
+                    <!-- Fake Search Bar -->
+                    <div class="px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800/60 flex items-center gap-2 text-xs text-slate-400">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/>
+                        </svg>
+                        <span>Filter by name, phone or email...</span>
+                    </div>
+
+                    <!-- Sample Rows -->
+                    <div class="space-y-2">
+                        <div class="p-2.5 rounded-xl bg-white/70 dark:bg-slate-900/50 border border-slate-200/60 dark:border-slate-800/80 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400 font-bold text-xs flex items-center justify-center">
+                                    MS
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-slate-900 dark:text-white">Maya Singh</p>
+                                    <p class="text-[10px] text-slate-400">maya@northstar.co</p>
+                                </div>
+                            </div>
+                            <span class="text-xs text-slate-500 font-mono">+1 415 555 0192</span>
+                        </div>
+
+                        <div class="p-2.5 rounded-xl bg-blue-50/60 dark:bg-blue-950/20 border border-blue-500/20 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-amber-100 dark:bg-amber-950 text-amber-600 dark:text-amber-400 font-bold text-xs flex items-center justify-center">
+                                    DC
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-1.5">
+                                        <p class="text-xs font-bold text-slate-900 dark:text-white">Daniel Cooper</p>
+                                        <span class="text-amber-500 text-[10px]">★</span>
+                                    </div>
+                                    <p class="text-[10px] text-slate-400">daniel@summit.io</p>
+                                </div>
+                            </div>
+                            <span class="text-xs text-slate-500 font-mono">+1 212 555 0148</span>
+                        </div>
+
+                        <div class="p-2.5 rounded-xl bg-white/70 dark:bg-slate-900/50 border border-slate-200/60 dark:border-slate-800/80 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 font-bold text-xs flex items-center justify-center">
+                                    NP
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-slate-900 dark:text-white">Nina Patel</p>
+                                    <p class="text-[10px] text-slate-400">nina@studioform.com</p>
+                                </div>
+                            </div>
+                            <span class="text-xs text-slate-500 font-mono">+44 20 7946 0912</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-      </div>
-      <div class="mt-16 grid border-t border-white/10 pt-10 text-center sm:grid-cols-3"><div><p class="text-3xl font-black text-white">One place</p><p class="mt-2 text-sm text-slate-400">for every important contact</p></div><div class="mt-8 sm:mt-0"><p class="text-3xl font-black text-white">Anytime</p><p class="mt-2 text-sm text-slate-400">find the person you need</p></div><div class="mt-8 sm:mt-0"><p class="text-3xl font-black text-white">Always yours</p><p class="mt-2 text-sm text-slate-400">your information stays private</p></div></div>
-    </div>
-  </section>
-  <section class="bg-slate-50 px-6 py-20 dark:bg-slate-950 lg:px-8"><div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-2 lg:items-center"><div><p class="font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">Built for everyday life</p><h2 class="mt-4 text-3xl font-black leading-tight tracking-wide sm:text-4xl">The little things are easier when you know where to look.</h2></div><div class="space-y-4"><details class="group rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900"><summary class="cursor-pointer list-none font-bold">Can I keep both personal and professional contacts here?<i class="fa-solid fa-plus float-right text-blue-600 group-open:hidden"></i><i class="fa-solid fa-minus float-right text-blue-600 hidden group-open:block"></i></summary><p class="mt-4 leading-7 text-slate-600 dark:text-slate-400">Yes. Smart Contact Manager gives you one clear home for the people in every part of your life.</p></details><details class="group rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900"><summary class="cursor-pointer list-none font-bold">What can I save with each contact?<i class="fa-solid fa-plus float-right text-blue-600 group-open:hidden"></i><i class="fa-solid fa-minus float-right text-blue-600 hidden group-open:block"></i></summary><p class="mt-4 leading-7 text-slate-600 dark:text-slate-400">Store names, email addresses, phone numbers, and notes so each contact has the context you need.</p></details></div></div></section>
+    </section>
+
+    <!-- Key Capabilities Section -->
+    <section class="py-20 border-y border-slate-200 dark:border-slate-800 bg-white/40 dark:bg-slate-900/30 backdrop-blur-sm px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto space-y-12">
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+                <p class="text-[11px] font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">Everything in one place</p>
+                <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">Built for simplicity & precision</h2>
+                <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">No complicated setup. Clean, focused contact management with powerful tools.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Tile 1 -->
+                <div class="glass-panel p-6 rounded-2xl space-y-3">
+                    <div class="badge-glow-blue w-10 h-10 rounded-xl flex items-center justify-center">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-sm font-bold text-slate-900 dark:text-white">Store Rich Profiles</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                        Save phone numbers, emails, addresses, and individual notes so every connection carries its full context.
+                    </p>
+                </div>
+
+                <!-- Tile 2 -->
+                <div class="glass-panel p-6 rounded-2xl space-y-3">
+                    <div class="badge-glow-amber w-10 h-10 rounded-xl flex items-center justify-center">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-sm font-bold text-slate-900 dark:text-white">Instant Directory Search</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                        Filter through hundreds of saved contacts instantly with live keyboard search and quick favorite filters.
+                    </p>
+                </div>
+
+                <!-- Tile 3 -->
+                <div class="glass-panel p-6 rounded-2xl space-y-3">
+                    <div class="badge-glow-cyan w-10 h-10 rounded-xl flex items-center justify-center">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-sm font-bold text-slate-900 dark:text-white">Cloudinary Image Sync</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                        Seamlessly attach avatars and profile pictures backed by reliable, high-speed Cloudinary cloud storage.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom CTA Banner -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto rounded-3xl bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-700 p-8 sm:p-12 text-center text-white shadow-xl">
+            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Ready to bring order to your contacts?</h2>
+            <p class="mt-2 text-xs sm:text-sm text-blue-100 max-w-lg mx-auto">
+                Create your account in seconds and experience contact management designed for speed and clarity.
+            </p>
+            <div class="mt-6 flex justify-center">
+                <a th:href="@{/SMC/register}"
+                   class="px-6 py-2.5 rounded-xl bg-white text-blue-700 hover:bg-blue-50 font-bold text-xs inline-flex items-center gap-2 shadow-md transition-colors">
+                    <span>Create Your Free Account</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
 </main>
 </body>
 </html>

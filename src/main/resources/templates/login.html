@@ -3,79 +3,140 @@
       xmlns:th="http://www.thymeleaf.org"
       th:replace="~{Base::parent(~{::#content},~{::title})}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:fragment="title">Login</title>
-    </head>
+    <title>Sign In | Smart Contact Manager</title>
+</head>
 <body>
-    <!-- Provide the fragments that Base expects -->
+<div th:fragment="content" id="content" class="min-h-[calc(100vh-4rem)] flex items-center justify-center p-4 sm:p-6 pt-24 pb-12">
+    <div class="w-full max-w-md space-y-6">
 
-<!--    th:fragment="content" means we are given the name to the fragment that is later caught by th:replace -->
-    <div th:fragment="content" id="content" class="p-6">
-        <div class="grid grid-cols-12">
-            <div class="col-span-4 md:col-span-2 lg:col-span-3 xl:col-span-3"></div>
-            <div class="col-span-12 md:col-span-8 lg:col-span-6 xl:col-span-6 justify-self-center w-full px-4"> 
-                <div class="bg-neutral-primary-soft block w-full max-w-md mx-auto p-6 border border-default rounded-xl shadow-xs hover:bg-neutral-secondary-medium text-left">
-                    <div th:replace="~{messages::messagebox}"></div>
-                    <h5 class="mb-3 text-2xl font-semibold tracking-tight text-heading leading-8">Login in</h5>
-
-                    <div class="text-red-600 text-center my-3" th:if="${param.error}">Invalid username and password.</div>
-                    <div class="text-green-600 text-center my-3" th:if="${param.logout}">You have been logged out.</div>
-
-
-                        <!-- Bind this form to the model object named userform. -->
-
-                        <!-- Login form -->
-                        <!-- Sends a POST request to Spring Security's login processing URL -->
-                        <!-- Thymeleaf converts th:action="@{/authenticate}" to action="/authenticate" -->
-                        <!-- Spring Security intercepts POST /authenticate and validates credentials -->
-                        <form
-                        method="post"
-                        th:action="@{/authenticate}"
-                        class="w-full mt-5"
-                        >
-                            <!-- POST sends data in the request body instead of the URL. -->
-                        <div class="mb-5">
-                            <label for="email" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Your Email</label>
-                            <input name="email" type="email" id="email"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@abc" required />
-                            <!-- <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-red-600 text-xs font-thin py-1 px-1"></p> -->
+        <!-- Login Card -->
+        <div class="glass-panel rounded-2xl p-6 sm:p-8 shadow-xl border border-slate-200 dark:border-slate-800">
+            <!-- Clean Modern Brand Header -->
+            <div class="flex flex-col items-center text-center mb-6">
+                <a th:href="@{/SMC/home}" class="mb-3 group">
+                    <div class="flex items-center gap-2.5">
+                        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/25 shrink-0 group-hover:scale-105 transition-transform">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
                         </div>
-                        <div class="mb-5">
-                            <label for="password" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
-                            <input name="password" type="password" id="password"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
-                            <!-- <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-red-600 text-xs font-thin py-1 px-1"></p> -->
-                        </div>
-                        <div class="flex items-center justify-center gap-3">
-                            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700">Login</button>
-                            <button type="reset" class="text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-orange-600 dark:hover:bg-orange-700">Reset</button>
-                        </div>
-                            <div class="flex justify-center mt-3">
-                                <a th:href="@{'/oauth2/authorization/google'}" class="inline-flex items-center gap-3 rounded-lg border border-gray-300 bg-white dark:bg-gray-900 dark:text-white px-6 py-3 text-sm font-medium text-black-700 shadow-sm transition duration-200 hover:bg-amber-50 hover:shadow-md active:scale-95">
-                                    <img src="https://www.vectorlogo.zone/logos/google/google-icon.svg" alt="Google Logo" class="h-5 w-5"/>Continue with Google
-                                </a>
-                            </div>
-                            <div class="flex justify-center mt-3">
-                                <a th:href="@{'/oauth2/authorization/github'}"
-                                   class="inline-flex items-center gap-3 rounded-lg bg-[#24292F] px-6 py-3 text-sm font-medium text-white shadow-sm transition duration-200 hover:bg-[#1b1f23] hover:shadow-md active:scale-95">
-
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                         viewBox="0 0 24 24"
-                                         class="h-5 w-5"
-                                         fill="white">
-                                        <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56 0-.28-.01-1.03-.02-2.03-3.2.69-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.05-.71.08-.69.08-.69 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.27-5.24-5.66 0-1.25.45-2.27 1.18-3.07-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.17a10.9 10.9 0 0 1 5.74 0c2.19-1.48 3.15-1.17 3.15-1.17.62 1.59.23 2.76.11 3.05.73.8 1.18 1.82 1.18 3.07 0 4.4-2.69 5.36-5.25 5.65.41.35.78 1.05.78 2.12 0 1.53-.01 2.77-.01 3.15 0 .31.21.67.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/>
-                                    </svg>
-
-                                    Continue with GitHub
-                                </a>
-                            </div>
-
-                        </form>
+                        <span class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
+                            Smart<span class="text-blue-600 dark:text-blue-400">Contact</span>
+                        </span>
                     </div>
+                </a>
+                <h1 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white mt-1">Welcome back</h1>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Enter your credentials to access your contacts.</p>
             </div>
+
+            <!-- Global Message / Feedback -->
+            <div th:replace="~{messages::messagebox}"></div>
+
+            <!-- Parameter Alert Badges -->
+            <div th:if="${param.error}"
+                 class="mb-4 p-3 rounded-xl border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300 text-xs font-semibold flex items-center gap-2">
+                <svg class="w-4 h-4 text-rose-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span>Invalid email or password. Please try again.</span>
+            </div>
+
+            <div th:if="${param.logout}"
+                 class="mb-4 p-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 text-xs font-semibold flex items-center gap-2">
+                <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span>You have been signed out successfully.</span>
+            </div>
+
+            <!-- OAuth Fast Login Buttons (High Contrast in Light and Dark Mode) -->
+            <div class="grid grid-cols-2 gap-3 mb-6">
+                <a th:href="@{/oauth2/authorization/google}"
+                   class="flex items-center justify-center gap-2 px-3 py-2.5 text-xs font-semibold rounded-xl border border-slate-300 dark:border-slate-700 bg-white hover:bg-slate-50 dark:bg-slate-800/90 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100 shadow-xs transition-all hover:scale-[1.02] active:scale-[0.98]">
+                    <img src="https://www.vectorlogo.zone/logos/google/google-icon.svg" alt="Google" class="w-4 h-4"/>
+                    <span>Google</span>
+                </a>
+
+                <a th:href="@{/oauth2/authorization/github}"
+                   class="flex items-center justify-center gap-2 px-3 py-2.5 text-xs font-semibold rounded-xl border border-slate-300 dark:border-slate-700 bg-white hover:bg-slate-50 dark:bg-slate-800/90 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100 shadow-xs transition-all hover:scale-[1.02] active:scale-[0.98]">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                        <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56 0-.28-.01-1.03-.02-2.03-3.2.69-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.05-.71.08-.69.08-.69 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.27-5.24-5.66 0-1.25.45-2.27 1.18-3.07-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.17a10.9 10.9 0 0 1 5.74 0c2.19-1.48 3.15-1.17 3.15-1.17.62 1.59.23 2.76.11 3.05.73.8 1.18 1.82 1.18 3.07 0 4.4-2.69 5.36-5.25 5.65.41.35.78 1.05.78 2.12 0 1.53-.01 2.77-.01 3.15 0 .31.21.67.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/>
+                    </svg>
+                    <span>GitHub</span>
+                </a>
+            </div>
+
+            <!-- Divider -->
+            <div class="relative my-6">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-slate-200 dark:border-slate-800"></div>
+                </div>
+                <div class="relative flex justify-center text-xs uppercase">
+                    <span class="bg-white dark:bg-[#111827] px-3 text-[11px] font-semibold text-slate-400">Or continue with email</span>
+                </div>
+            </div>
+
+            <!-- Authentication Form -->
+            <form method="post" th:action="@{/authenticate}" class="space-y-4">
+                <!-- Email Field -->
+                <div>
+                    <label for="email" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                        Email Address
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none text-slate-400">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <input name="email" type="email" id="email" required
+                               class="w-full py-2 ps-9 pe-3 text-xs rounded-xl border border-slate-200 bg-white dark:bg-slate-900 dark:border-slate-800 text-slate-900 dark:text-white modern-input placeholder:text-slate-400"
+                               placeholder="you@domain.com">
+                    </div>
+                </div>
+
+                <!-- Password Field -->
+                <div>
+                    <div class="flex items-center justify-between mb-1.5">
+                        <label for="password" class="block text-xs font-semibold text-slate-700 dark:text-slate-300">
+                            Password
+                        </label>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none text-slate-400">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                            </svg>
+                        </div>
+                        <input name="password" type="password" id="password" required
+                               class="w-full py-2 ps-9 pe-3 text-xs rounded-xl border border-slate-200 bg-white dark:bg-slate-900 dark:border-slate-800 text-slate-900 dark:text-white modern-input placeholder:text-slate-400"
+                               placeholder="••••••••">
+                    </div>
+                </div>
+
+                <!-- Submit Button: Highly Visible in Both Light & Dark Mode -->
+                <button type="submit"
+                        class="btn-primary-gradient w-full py-2.5 px-4 text-xs font-semibold rounded-xl bg-blue-600 text-white inline-flex items-center justify-center gap-2 mt-2 shadow-md shadow-blue-500/30 hover:bg-blue-700 active:scale-[0.99] transition-all">
+                    <span class="text-white font-semibold">Sign In</span>
+                    <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                    </svg>
+                </button>
+            </form>
+
+            <!-- Footer Sign up link -->
+            <p class="text-center text-xs text-slate-500 dark:text-slate-400 mt-6">
+                Don't have an account?
+                <a th:href="@{/SMC/register}" class="font-semibold text-blue-600 dark:text-blue-400 hover:underline">
+                    Create one here
+                </a>
+            </p>
         </div>
+
     </div>
-
-    
-
+</div>
 </body>
 </html>

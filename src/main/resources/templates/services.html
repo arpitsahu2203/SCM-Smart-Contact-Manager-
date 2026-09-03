@@ -1,12 +1,136 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{Base::parent(~{::#content},~{::title})}">
-<head><title>Features | Smart Contact Manager</title></head>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{Base::parent(~{::#content},~{::title})}">
+<head>
+    <title>Services & Features | Smart Contact Manager</title>
+</head>
 <body>
-<main id="content" class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-white">
-  <section class="relative overflow-hidden px-6 py-24 lg:px-8 lg:py-32"><div class="absolute left-1/2 top-0 -z-0 h-80 w-[42rem] -translate-x-1/2 rounded-full bg-blue-300/25 blur-3xl dark:bg-blue-700/20"></div><div class="relative mx-auto max-w-4xl text-center"><p class="font-bold uppercase tracking-[.22em] text-blue-600 dark:text-blue-400">What you can do</p><h1 class="mt-5 text-4xl font-black leading-tight tracking-wide sm:text-6xl">Everything you need to keep your network in focus.</h1><p class="mx-auto mt-7 max-w-3xl text-lg leading-9 tracking-wide text-slate-600 dark:text-slate-300">Practical contact tools designed around the way you actually remember, search, and reconnect with people.</p></div></section>
-  <section class="px-6 pb-24 lg:px-8"><div class="mx-auto grid max-w-7xl gap-6 md:grid-cols-2"><article class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-10"><span class="grid h-14 w-14 place-items-center rounded-2xl bg-blue-100 text-xl text-blue-600 dark:bg-blue-950 dark:text-blue-300"><i class="fa-solid fa-user-plus"></i></span><h2 class="mt-7 text-2xl font-black tracking-wide">Add contacts with ease</h2><p class="mt-4 max-w-md leading-8 tracking-wide text-slate-600 dark:text-slate-400">Create a clear profile for every person, complete with the details you need most.</p><ul class="mt-7 space-y-3 text-sm font-medium text-slate-600 dark:text-slate-300"><li><i class="fa-solid fa-check mr-3 text-blue-600"></i>Names, phone numbers, and email addresses</li><li><i class="fa-solid fa-check mr-3 text-blue-600"></i>Notes that add useful context</li></ul></article><article class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-10"><span class="grid h-14 w-14 place-items-center rounded-2xl bg-violet-100 text-xl text-violet-600 dark:bg-violet-950 dark:text-violet-300"><i class="fa-solid fa-id-card"></i></span><h2 class="mt-7 text-2xl font-black tracking-wide">Organize rich profiles</h2><p class="mt-4 max-w-md leading-8 tracking-wide text-slate-600 dark:text-slate-400">Keep the story behind a contact with a profile that is tidy, detailed, and ready when you need it.</p><ul class="mt-7 space-y-3 text-sm font-medium text-slate-600 dark:text-slate-300"><li><i class="fa-solid fa-check mr-3 text-violet-600"></i>Editable personal information</li><li><i class="fa-solid fa-check mr-3 text-violet-600"></i>One profile for each connection</li></ul></article><article class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-10"><span class="grid h-14 w-14 place-items-center rounded-2xl bg-amber-100 text-xl text-amber-600 dark:bg-amber-950 dark:text-amber-300"><i class="fa-solid fa-magnifying-glass"></i></span><h2 class="mt-7 text-2xl font-black tracking-wide">Find people quickly</h2><p class="mt-4 max-w-md leading-8 tracking-wide text-slate-600 dark:text-slate-400">Search through your list without digging through old emails, messages, or paper notes.</p><ul class="mt-7 space-y-3 text-sm font-medium text-slate-600 dark:text-slate-300"><li><i class="fa-solid fa-check mr-3 text-amber-600"></i>Fast, focused lookup</li><li><i class="fa-solid fa-check mr-3 text-amber-600"></i>Your contacts, always within reach</li></ul></article><article class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-10"><span class="grid h-14 w-14 place-items-center rounded-2xl bg-emerald-100 text-xl text-emerald-600 dark:bg-emerald-950 dark:text-emerald-300"><i class="fa-solid fa-share-nodes"></i></span><h2 class="mt-7 text-2xl font-black tracking-wide">Save social links</h2><p class="mt-4 max-w-md leading-8 tracking-wide text-slate-600 dark:text-slate-400">Keep the social profiles and online touchpoints that help you stay connected in one place.</p><ul class="mt-7 space-y-3 text-sm font-medium text-slate-600 dark:text-slate-300"><li><i class="fa-solid fa-check mr-3 text-emerald-600"></i>Useful online profile links</li><li><i class="fa-solid fa-check mr-3 text-emerald-600"></i>Less switching between apps</li></ul></article></div></section>
-  <section class="bg-slate-900 px-6 py-20 text-white dark:bg-black lg:px-8"><div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:items-center"><div><p class="font-bold uppercase tracking-[.2em] text-blue-300">Built around your privacy</p><h2 class="mt-4 text-3xl font-black leading-tight tracking-wide sm:text-4xl">A personal contact book with protected access.</h2></div><div class="rounded-2xl border border-white/10 bg-white/5 p-7"><i class="fa-solid fa-shield-halved text-3xl text-blue-300"></i><p class="mt-5 leading-8 text-slate-300">Your account helps keep your saved contacts private and accessible only after secure sign-in.</p></div></div></section>
-  <section class="px-6 py-20 lg:px-8"><div class="mx-auto max-w-5xl rounded-3xl bg-blue-600 px-8 py-14 text-center text-white shadow-xl shadow-blue-600/20"><h2 class="text-3xl font-black tracking-wide sm:text-4xl">Ready to simplify your contacts?</h2><p class="mt-4 text-blue-100">Create an account and start building your better address book.</p><a th:href="@{/SMC/register}" class="mt-8 inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3.5 font-bold text-blue-700">Get started <i class="fa-solid fa-arrow-right text-sm"></i></a></div></section>
+<main id="content" class="min-h-[calc(100vh-4rem)] pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto space-y-16">
+
+        <!-- Header -->
+        <section class="text-center max-w-3xl mx-auto space-y-4 pt-8">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+                <span>Features & Services</span>
+            </div>
+            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
+                Everything you need to keep your network in focus.
+            </h1>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto">
+                Practical contact management tools designed around how you actually remember, search, and reconnect with people.
+            </p>
+        </section>
+
+        <!-- 2x2 Feature Grid -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Feature 1 -->
+            <div class="glass-panel p-8 rounded-3xl space-y-4">
+                <div class="badge-glow-blue w-12 h-12 rounded-2xl flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white">Seamless Contact Creation</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                    Quickly add new people to your directory with complete contact records—including phone numbers, primary emails, and home/office addresses.
+                </p>
+                <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300 pt-2">
+                    <li class="flex items-center gap-2">
+                        <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Full name and multi-channel communication entries</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Real-time input validation to prevent broken records</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="glass-panel p-8 rounded-3xl space-y-4">
+                <div class="badge-glow-cyan w-12 h-12 rounded-2xl flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white">Cloudinary Image Storage</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                    Upload avatar photos with drag-and-drop ease. Images are securely hosted and served instantly via Cloudinary's global content delivery network.
+                </p>
+                <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300 pt-2">
+                    <li class="flex items-center gap-2">
+                        <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Instant in-browser image preview before saving</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Fast, lightweight delivery on all devices</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="glass-panel p-8 rounded-3xl space-y-4">
+                <div class="badge-glow-amber w-12 h-12 rounded-2xl flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white">Real-Time Search & Filters</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                    Search by name, phone number, or email without waiting for page reloads. Filter to your starred contacts with a single click.
+                </p>
+                <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300 pt-2">
+                    <li class="flex items-center gap-2">
+                        <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Interactive quick-filter buttons (All vs. Favorites)</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Keyboard shortcuts (<kbd class="px-1 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-[10px]">Ctrl+K</kbd> or <kbd class="px-1 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-[10px]">/</kbd>)</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Feature 4 -->
+            <div class="glass-panel p-8 rounded-3xl space-y-4">
+                <div class="w-12 h-12 rounded-2xl bg-violet-500/10 text-violet-600 dark:text-violet-400 border border-violet-500/20 flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white">Social Channel Bookmarking</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                    Attach personal websites, LinkedIn profiles, and X / Twitter handles directly to each contact card for effortless one-click outreach.
+                </p>
+                <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300 pt-2">
+                    <li class="flex items-center gap-2">
+                        <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Direct social links in table and profile modals</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Clickable <code class="text-blue-500">tel:</code> and <code class="text-blue-500">mailto:</code> actions</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="py-12 text-center space-y-4">
+            <h2 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Get started with Smart Contact Manager</h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400 max-w-md mx-auto">Create an account now to start building your unified address book.</p>
+            <a th:href="@{/SMC/register}"
+               class="btn-primary-gradient px-6 py-2.5 text-xs font-semibold rounded-xl inline-flex items-center gap-2 shadow-md">
+                <span>Sign up today</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                </svg>
+            </a>
+        </section>
+
+    </div>
 </main>
 </body>
 </html>
