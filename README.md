@@ -1,6 +1,6 @@
 <div align="center">
 
-# 📇 Smart Contact Manager
+# 📇 Smart Contact Manager (SMC)
 
 **A modern, secure, and high-performance contact directory application built with Spring Boot 4, Tailwind CSS, Cloudinary CDN, and Spring Security 6.**
 
@@ -15,11 +15,11 @@
 
 <p align="center">
   <a href="#-features">Features</a> •
-  <a href="#-interface-showcase">Interface Showcase</a> •
+  <a href="#-rest-api-endpoints">REST API</a> •
   <a href="#-tech-stack">Tech Stack</a> •
+  <a href="#-project-structure">Project Structure</a> •
   <a href="#-getting-started">Getting Started</a> •
-  <a href="#-configuration">Configuration</a> •
-  <a href="#-shortcuts">Keyboard Shortcuts</a>
+  <a href="#-configuration">Configuration</a>
 </p>
 
 </div>
@@ -45,7 +45,7 @@
 <br/><br/>
 
 ### 3. Contacts Directory & Live Search
-*High-density table with instant keyboard filtering (`Ctrl + K`), favorite filters, and one-click copy to clipboard.*
+*High-density table with instant keyboard filtering (`Ctrl + K`), favorite filters, one-click copy to clipboard, and quick-action triggers.*
 <br/>
 <img src="docs/screenshots/contacts-directory.png" alt="Contacts Directory" width="900" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.12);" />
 
@@ -59,7 +59,7 @@
 <br/><br/>
 
 ### 5. Account Security & User Profile
-*OAuth provider synchronization, verified email badges, and account metadata.*
+*OAuth provider synchronization, verified email badges, and editable account profile.*
 <br/>
 <img src="docs/screenshots/profile.png" alt="Account Profile View" width="900" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.12);" />
 
@@ -77,23 +77,61 @@
 
 ### 🔐 Authentication & Security
 - **Multi-Provider OAuth2**: One-click social authentication using **Google** and **GitHub**.
-- **Standard Database Authentication**: Email and BCrypt-hashed password authentication with role-based access control (`ROLE_USER`).
-- **CSRF & Session Protection**: Spring Security 6 session management with hardened CSRF tokens and safe redirect handlers.
+- **Database Authentication**: Email and BCrypt-hashed password authentication with role-based access control (`ROLE_USER`).
+- **Granular Authorization**: Strict ownership validation preventing unauthorized access or deletion of other users' contacts.
+- **Protected REST Layer**: Endpoints under `/SMC/user/**` and `/SMC/api/**` strictly enforce Spring Security authentication.
 
-### 📇 Contact Management & Cloud Media
-- **Full CRUD Operations**: Create, view, update, and delete contacts with rich metadata (name, email, phone number, physical address, LinkedIn, Website, and X/Twitter links).
-- **Cloudinary Image Synchronization**: Instant drag-and-drop photo uploads stored on Cloudinary's global media CDN.
-- **Interactive Directory Table**:
-  - Live client-side instant search filter with instant result count.
-  - **One-Click Copy**: Click any phone number or email address to copy it to the clipboard with animated checkmark feedback and toast notification.
-  - **Favorites Filter**: Quick tab toggle to filter high-priority starred contacts.
-  - **Quick-View Modal**: Accessible modal popup for contact details with direct `tel:` and `mailto:` action triggers.
+### 📇 Modern Contact Management
+- **Full CRUD Engine**: Add, view, edit, and delete contacts with comprehensive profiles (Name, Email, Phone, Address, Notes, Favorite status, and Social Channels: LinkedIn, Website, X/Twitter, Instagram).
+- **Asynchronous Contact Quick-View Modal (AJAX)**:
+  - Zero-page-reload contact inspection powered by `GET /SMC/api/contacts/{id}`.
+  - Smooth animation with an animated skeleton loader (`animate-pulse`) while fetching.
+  - Dedicated error and offline fallback states.
+  - Quick action buttons: **Direct Call** (`tel:`), **Send Email** (`mailto:`), **Edit Contact**, and **Delete Contact**.
+- **Contact Deletion with Confirmation Popup**:
+  - Accessible confirmation modal (`#delete-contact-confirm-modal`) displaying contact name and destruction warnings.
+  - Destructive action executed asynchronously via `DELETE /SMC/api/contacts/{id}`.
+  - Instant row removal with smooth CSS fade/scale transition and dynamic counter updates without reloading.
+- **Contact Profile Editing**:
+  - Full edit interface (`/SMC/user/Contact/view/{id}` & `/update/{id}`) with prefilled fields.
+  - Supports photo replacement with Cloudinary upload synchronization.
+- **User Account Profile Editing**:
+  - Interactive profile edit modal on `/SMC/user/profile` allowing users to update their **Name**, **Phone Number**, and **About Bio**.
+- **Interactive Directory Tools**:
+  - Real-time client-side search filtering by name, phone, or email.
+  - **One-Click Copy**: Click any phone number or email to copy to clipboard with instant visual feedback and toast notifications.
+  - **Favorites Filtering**: Filter starred priority connections with one click.
 
 ### 🎨 Modern UI & Interaction Design
-- **Linear & Apple-Inspired Aesthetics**: Crisp slate typography, subtle borders, glassmorphic cards, and zero AI clutter.
+- **Linear & Apple-Inspired Aesthetics**: Crisp slate typography, subtle borders, glassmorphic panels, and glowing avatar halos.
 - **Adaptive Dark & Light Mode**: Theme engine with system-preference detection and zero-flash inline script.
 - **Tactile Micro-Interactions**: Animated stat counters on dashboard metrics, hover scale states, and interactive character countdown on notes.
 - **Fully Responsive**: Fixed desktop sidebar navigation with mobile off-canvas drawer and backdrop blur overlay.
+
+---
+
+## 🔌 REST API Endpoints
+
+All REST endpoints require authentication and enforce contact ownership:
+
+| HTTP Method | Endpoint | Description | Status Codes |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/SMC/api/contacts/{id}` | Fetches full contact details asynchronously | `200`, `401`, `403`, `404` |
+| `PUT` | `/SMC/api/contacts/{id}` | Updates contact fields via JSON payload | `200`, `401`, `403`, `404` |
+| `DELETE` | `/SMC/api/contacts/{id}` | Deletes a contact record with confirmation | `200`, `401`, `403`, `404` |
+
+### Web Controller Routes
+
+| HTTP Method | Route | Description |
+| :--- | :--- | :--- |
+| `GET` | `/SMC/user/Contact/view` | Contacts directory table with pagination and search |
+| `GET` | `/SMC/user/Contact/add` | Add new contact view |
+| `POST` | `/SMC/user/Contact/add` | Form submit to create a new contact |
+| `GET` | `/SMC/user/Contact/view/{id}` | Edit contact profile page |
+| `POST` | `/SMC/user/Contact/update/{id}` | Form submit to update contact details |
+| `GET` | `/SMC/user/Contact/delete/{id}` | Traditional fallback delete route |
+| `GET` | `/SMC/user/profile` | View logged-in user profile |
+| `POST` | `/SMC/user/profile/update` | Update user account name, phone, and bio |
 
 ---
 
@@ -101,14 +139,14 @@
 
 | Layer | Technology | Description |
 | :--- | :--- | :--- |
-| **Backend** | Spring Boot 4.0.6 | Core web framework & dependency injection |
+| **Backend Framework** | Spring Boot 4.0.6 | Core web framework, REST controllers, and dependency injection |
 | **Language** | Java 21 LTS | Modern Java features (Records, Pattern Matching) |
-| **Security** | Spring Security 6 & OAuth2 | Multi-provider authentication (Google, GitHub, Form) |
+| **Security** | Spring Security 6 & OAuth2 | Multi-provider authentication (Google, GitHub, Form Login) |
 | **Persistence** | Spring Data JPA & Hibernate | Entity modeling and database abstractions |
-| **Database** | MySQL 8.0+ | Relational storage for users and contacts |
+| **Database** | MySQL 8.0+ | Relational storage for users, contacts, and tokens |
 | **Frontend** | Thymeleaf 3 | Server-side template engine |
 | **Styling** | Tailwind CSS & Modern Theme | Utility-first CSS with dark/light mode tokens |
-| **UI Add-ons** | Flowbite & Heroicons | Accessible modals, dropdowns, and vector icons |
+| **Interactions** | Vanilla JavaScript (ES6+) | Asynchronous AJAX fetch, modal engines, and clipboard integration |
 | **Media CDN** | Cloudinary API | High-speed cloud image hosting & optimization |
 
 ---
@@ -122,21 +160,23 @@ SCM-Smart-Contact-Manager/
 ├── src/
 │   ├── main/
 │   │   ├── java/org/arpitsahu/smc/
-│   │   │   ├── config/           # Security, OAuth2, and App Configurations
-│   │   │   ├── controllers/      # Spring MVC Routing (Page, User, Auth)
-│   │   │   ├── entities/         # JPA Entities (User, Contact, SocialLink)
-│   │   │   ├── forms/            # Form DTOs with validation rules
-│   │   │   ├── helpers/          # Message handlers, Session helpers, Cloudinary
-│   │   │   ├── repositories/     # Spring Data JPA Repositories
-│   │   │   ├── services/         # Business Logic & User/Contact Services
+│   │   │   ├── Config/           # SecurityConfig, OAuth2SuccessHandler, AppConfig
+│   │   │   ├── Controller/       # ContactController, ContactApiController, UserController
+│   │   │   ├── Entities/         # JPA Entities (Users, Contact, Providers, SocialLink)
+│   │   │   ├── forms/            # Form DTOs (contactForm, UserForms)
+│   │   │   ├── Helper/           # Helpers, AppConstants, ResourceNotFoundException
+│   │   │   ├── payload/          # ContactResponseDto (Clean REST serialization)
+│   │   │   ├── Repository/       # Spring Data JPA Repositories (UserRepo, contactRepo)
+│   │   │   ├── Services/         # Service Interfaces (contactService, UserService)
+│   │   │   ├── ServiceImpl/      # Service Implementations (contactServiceImpl, etc.)
 │   │   │   └── SmcApplication.java # Application Entry Point
 │   │   └── resources/
 │   │       ├── static/
 │   │       │   ├── css/          # Custom modern-theme.css & utility styles
-│   │       │   ├── JS/           # Core Script.js & Admin.js preview engines
+│   │       │   ├── JS/           # Script.js (Modal & AJAX engines) & Admin.js
 │   │       │   └── Images/       # Default avatar assets & SVG graphics
-│   │       ├── templates/        # Thymeleaf Templates (home, login, register)
-│   │       │   └── user/         # Authenticated User Views (dashboard, contacts)
+│   │       ├── templates/        # Thymeleaf Templates (Base, home, login, register)
+│   │       │   └── user/         # Authenticated User Views (dashboard, contacts, UpdateContact, profile)
 │   │       └── application.properties # Main Spring configuration
 ├── .env.example                  # Template for local environment secrets
 ├── pom.xml                       # Maven dependencies & build configuration
@@ -159,7 +199,7 @@ cd SCM-Smart-Contact-Manager-
 ```
 
 ### 3. Configure Environment Variables
-Copy `.env.example` to `.env` (or set the properties directly in `src/main/resources/application.properties`):
+Copy `.env.example` to `.env`:
 
 ```bash
 cp .env.example .env
@@ -203,13 +243,21 @@ Using the included Maven wrapper:
 
 **Linux / macOS:**
 ```bash
-mvn clean package
+./mvnw clean spring-boot:run
 ```
 
-## ScreenShots
+Access the application in your browser at `http://localhost:8080`.
 
-![home page](C:\Users\USER\OneDrive\Pictures\Screenshots 1\Screenshot 2026-08-20 163456.png)   
+---
 
-## License
+## ⌨️ Keyboard Shortcuts
 
-No license has been specified.
+| Shortcut | Action | Scope |
+| :--- | :--- | :--- |
+| `Ctrl + K` or `/` | Focus live contact search bar | Contacts Directory |
+| `Escape` | Close active modals (Profile, Delete Confirmation) | Global |
+
+---
+
+## 📄 License
+This project is licensed under the MIT License.

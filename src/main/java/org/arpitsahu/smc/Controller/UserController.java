@@ -1,40 +1,39 @@
 package org.arpitsahu.smc.Controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.arpitsahu.smc.Entities.Users;
 import org.arpitsahu.smc.Helper.Helper;
+import org.arpitsahu.smc.Helper.messageEnum;
+import org.arpitsahu.smc.Helper.messageHelper;
 import org.arpitsahu.smc.Services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Controller;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.security.Principal;
-import java.util.Objects;
 
 //this class will handle all the user related requests
-@Controller//this will return a html page
+@Controller
 @RequestMapping("/SMC/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    Logger log= LoggerFactory.getLogger(UserController.class);
-
-    //instead of only giving user to profile request we will make it in such a way so that
-    //it can be sent to all the request
-    //we will make a class Root controller that will send a data to every request
+    Logger log = LoggerFactory.getLogger(UserController.class);
 
     //user dashboard page
     @GetMapping("/dashboard")
@@ -44,9 +43,31 @@ public class UserController {
 
     //user profile page
     @GetMapping("/profile")
-    //instead of using principal we will use Authentication like of that we used in OAuth config
     public String profile(Model model, Authentication authentication){
         return "user/profile";
+    }
+
+    //user profile update
+    @PostMapping("/profile/update")
+    public String updateProfile(@RequestParam("name") String name,
+                                @RequestParam(value = "phoneNumber", required = false) String phoneNumber,
+                                @RequestParam(value = "about", required = false) String about,
+                                Authentication authentication,
+                                HttpSession session) {
+        String username = Helper.getEmailOfLoggedInUser(authentication);
+        Users user = userService.getUserByEmail(username);
+
+        if (user != null) {
+            user.setName(name);
+            user.setPhoneNumber(phoneNumber);
+            user.setAbout(about);
+            userService.updateUsers(user);
+            session.setAttribute("message", messageHelper.builder()
+                    .type(messageEnum.green)
+                    .content("Profile updated successfully")
+                    .build());
+        }
+        return "redirect:/SMC/user/profile";
     }
 
     @GetMapping("/profile-pic")
@@ -73,10 +94,4 @@ public class UserController {
                     .body(imageBytes);
         }
     }
-
-    //user add contact page
-
-    //usr edit contact page
-
-    //user delete contact page
 }

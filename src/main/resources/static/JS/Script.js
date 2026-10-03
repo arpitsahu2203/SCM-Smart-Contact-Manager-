@@ -189,94 +189,314 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
-        // Quick View Modal
+        // Quick View Modal (AJAX-Powered)
         const modal = document.getElementById("contact-profile-modal");
         const modalContainerCard = document.getElementById("modal-container-card");
         const closeModalBtn = document.getElementById("close-contact-modal-btn");
+        const modalSkeleton = document.getElementById("modal-loading-skeleton");
+        const modalErrorState = document.getElementById("modal-error-state");
+        const modalContentBody = document.getElementById("modal-content-body");
+        const modalErrorMessage = document.getElementById("modal-error-message");
+        const modalErrorCloseBtn = document.getElementById("modal-error-close-btn");
+
+        async function fetchAndRenderContactModal(contactId, fallbackRow) {
+            if (!modal) return;
+
+            // Reset modal states
+            if (modalSkeleton) modalSkeleton.classList.remove("hidden");
+            if (modalErrorState) modalErrorState.classList.add("hidden");
+            if (modalContentBody) modalContentBody.classList.add("hidden");
+
+            // Open modal container with scale animation
+            modal.classList.remove("hidden");
+            setTimeout(() => {
+                if (modalContainerCard) {
+                    modalContainerCard.classList.remove("scale-95");
+                    modalContainerCard.classList.add("scale-100");
+                }
+            }, 10);
+
+            try {
+                const response = await fetch(`/SMC/api/contacts/${encodeURIComponent(contactId)}`, {
+                    headers: { "Accept": "application/json" }
+                });
+
+                if (!response.ok) {
+                    let errorText = "Unable to load contact details";
+                    if (response.status === 403) errorText = "Access forbidden for this contact.";
+                    else if (response.status === 404) errorText = "Contact not found.";
+                    throw new Error(errorText);
+                }
+
+                const data = await response.json();
+                renderContactModalData(data);
+
+                // Show populated content
+                if (modalSkeleton) modalSkeleton.classList.add("hidden");
+                if (modalContentBody) modalContentBody.classList.remove("hidden");
+
+            } catch (err) {
+                console.error("AJAX contact fetch error:", err);
+
+                // If fallback data exists on row, use it gracefully as fallback
+                if (fallbackRow) {
+                    const fallbackData = {
+                        name: fallbackRow.getAttribute("data-name") || "Unknown",
+                        email: fallbackRow.getAttribute("data-email") || "",
+                        phoneNumber: fallbackRow.getAttribute("data-phone") || "",
+                        picture: fallbackRow.getAttribute("data-picture") || "/Images/profile-svgrepo-com.svg",
+                        address: fallbackRow.getAttribute("data-address") || "",
+                        description: fallbackRow.getAttribute("data-description") || "",
+                        favorite: fallbackRow.getAttribute("data-favorite") === "true",
+                        linkedinLink: fallbackRow.getAttribute("data-linkedin") || "",
+                        websiteLink: fallbackRow.getAttribute("data-website") || "",
+                        twitterLink: fallbackRow.getAttribute("data-twitter") || "",
+                        instagramLink: ""
+                    };
+                    renderContactModalData(fallbackData);
+                    if (modalSkeleton) modalSkeleton.classList.add("hidden");
+                    if (modalContentBody) modalContentBody.classList.remove("hidden");
+                    showToast("Loaded offline contact preview");
+                } else {
+                    if (modalSkeleton) modalSkeleton.classList.add("hidden");
+                    if (modalErrorState) {
+                        modalErrorState.classList.remove("hidden");
+                        if (modalErrorMessage) modalErrorMessage.textContent = err.message || "Failed to load contact info.";
+                    }
+                    showToast("Error retrieving contact");
+                }
+            }
+        }
+
+        function renderContactModalData(contact) {
+            const nameEl = document.getElementById("modal-contact-name");
+            const emailEl = document.getElementById("modal-contact-email");
+            const phoneEl = document.getElementById("modal-contact-phone");
+            const picEl = document.getElementById("modal-contact-picture");
+            const starEl = document.getElementById("modal-contact-star");
+
+            if (nameEl) nameEl.textContent = contact.name || "Unknown";
+            if (emailEl) emailEl.textContent = contact.email || "No email";
+            if (phoneEl) phoneEl.textContent = contact.phoneNumber || "No phone provided";
+            if (picEl) picEl.src = contact.picture && contact.picture.trim() !== "" ? contact.picture : "/Images/profile-svgrepo-com.svg";
+            if (starEl) starEl.classList.toggle("hidden", !contact.favorite);
+
+            // Action Triggers
+            const callBtn = document.getElementById("modal-call-btn");
+            if (callBtn) {
+                callBtn.href = contact.phoneNumber ? "tel:" + contact.phoneNumber : "#";
+                callBtn.classList.toggle("opacity-50", !contact.phoneNumber);
+                callBtn.classList.toggle("pointer-events-none", !contact.phoneNumber);
+            }
+
+            const emailBtn = document.getElementById("modal-email-btn");
+            if (emailBtn) {
+                emailBtn.href = contact.email ? "mailto:" + contact.email : "#";
+                emailBtn.classList.toggle("opacity-50", !contact.email);
+                emailBtn.classList.toggle("pointer-events-none", !contact.email);
+            }
+
+            // Address & Description
+            const addrEl = document.getElementById("modal-contact-address");
+            const addrBox = document.getElementById("modal-address-container");
+            if (addrEl && addrBox) {
+                addrEl.textContent = contact.address || "No address added";
+                addrBox.classList.toggle("hidden", !contact.address);
+            }
+
+            const descEl = document.getElementById("modal-contact-desc");
+            const descBox = document.getElementById("modal-desc-container");
+            if (descEl && descBox) {
+                descEl.textContent = contact.description || "No notes available";
+                descBox.classList.toggle("hidden", !contact.description);
+            }
+
+            // Social channels
+            const liBtn = document.getElementById("modal-linkedin-btn");
+            if (liBtn) {
+                liBtn.href = contact.linkedinLink || "#";
+                liBtn.classList.toggle("hidden", !contact.linkedinLink);
+            }
+
+            const webBtn = document.getElementById("modal-website-btn");
+            if (webBtn) {
+                webBtn.href = contact.websiteLink || "#";
+                webBtn.classList.toggle("hidden", !contact.websiteLink);
+            }
+
+            const twBtn = document.getElementById("modal-twitter-btn");
+            if (twBtn) {
+                twBtn.href = contact.twitterLink || "#";
+                twBtn.classList.toggle("hidden", !contact.twitterLink);
+            }
+
+            const igBtn = document.getElementById("modal-instagram-btn");
+            if (igBtn) {
+                igBtn.href = contact.instagramLink || "#";
+                igBtn.classList.toggle("hidden", !contact.instagramLink);
+            }
+
+            // Edit & Delete Buttons inside Profile Modal
+            const editModalBtn = document.getElementById("modal-edit-contact-btn");
+            if (editModalBtn && contact.id) {
+                editModalBtn.href = `/SMC/user/Contact/view/${encodeURIComponent(contact.id)}`;
+            }
+
+            const deleteModalBtn = document.getElementById("modal-delete-contact-btn");
+            if (deleteModalBtn && contact.id) {
+                deleteModalBtn.onclick = () => {
+                    openDeleteConfirmationModal(contact.id, contact.name || "this contact");
+                };
+            }
+        }
+
+        // ==========================================
+        // DELETE CONFIRMATION POPUP SYSTEM
+        // ==========================================
+        let pendingDeleteId = null;
+        let pendingDeleteRow = null;
+
+        const deleteConfirmModal = document.getElementById("delete-contact-confirm-modal");
+        const deleteModalCard = document.getElementById("delete-modal-card");
+        const cancelDeleteBtn = document.getElementById("cancel-delete-btn");
+        const confirmDeleteBtn = document.getElementById("confirm-delete-btn");
+        const deleteContactNameEl = document.getElementById("delete-target-contact-name");
+        const deleteSpinner = document.getElementById("confirm-delete-spinner");
+        const deleteText = document.getElementById("confirm-delete-text");
+
+        function openDeleteConfirmationModal(id, name, row) {
+            pendingDeleteId = id;
+            pendingDeleteRow = row || document.querySelector(`tr[data-id="${id}"]`);
+            if (deleteContactNameEl) {
+                deleteContactNameEl.textContent = name || "this contact";
+            }
+            if (deleteConfirmModal) {
+                deleteConfirmModal.classList.remove("hidden");
+                setTimeout(() => {
+                    if (deleteModalCard) {
+                        deleteModalCard.classList.remove("scale-95");
+                        deleteModalCard.classList.add("scale-100");
+                    }
+                }, 10);
+            }
+        }
+
+        function closeDeleteConfirmationModal() {
+            if (deleteModalCard) {
+                deleteModalCard.classList.remove("scale-100");
+                deleteModalCard.classList.add("scale-95");
+            }
+            setTimeout(() => {
+                if (deleteConfirmModal) deleteConfirmModal.classList.add("hidden");
+                pendingDeleteId = null;
+                pendingDeleteRow = null;
+            }, 150);
+        }
+
+        if (cancelDeleteBtn) {
+            cancelDeleteBtn.addEventListener("click", closeDeleteConfirmationModal);
+        }
+
+        if (deleteConfirmModal) {
+            deleteConfirmModal.addEventListener("click", (e) => {
+                if (e.target === deleteConfirmModal) closeDeleteConfirmationModal();
+            });
+        }
+
+        // Hook up delete buttons on table rows
+        document.querySelectorAll(".delete-contact-btn").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const contactId = btn.getAttribute("data-id");
+                const contactName = btn.getAttribute("data-name") || "this contact";
+                const row = btn.closest(".contact-item-row");
+                openDeleteConfirmationModal(contactId, contactName, row);
+            });
+        });
+
+        // Perform AJAX Delete on Confirmation
+        if (confirmDeleteBtn) {
+            confirmDeleteBtn.addEventListener("click", async () => {
+                if (!pendingDeleteId) return;
+
+                if (deleteSpinner) deleteSpinner.classList.remove("hidden");
+                if (deleteText) deleteText.textContent = "Deleting...";
+                confirmDeleteBtn.disabled = true;
+
+                try {
+                    const response = await fetch(`/SMC/api/contacts/${encodeURIComponent(pendingDeleteId)}`, {
+                        method: "DELETE",
+                        headers: { "Accept": "application/json" }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error("Server returned status " + response.status);
+                    }
+
+                    // Success notification
+                    showToast("Contact deleted successfully");
+
+                    // Close confirmation modal
+                    closeDeleteConfirmationModal();
+
+                    // Also close profile modal if open
+                    if (modal && !modal.classList.contains("hidden")) {
+                        closeModal();
+                    }
+
+                    // Fade out and remove row
+                    if (pendingDeleteRow) {
+                        pendingDeleteRow.style.transition = "all 0.3s ease";
+                        pendingDeleteRow.style.opacity = "0";
+                        pendingDeleteRow.style.transform = "scale(0.95)";
+                        setTimeout(() => {
+                            pendingDeleteRow.remove();
+                            // Update total count
+                            const remaining = document.querySelectorAll(".contact-item-row").length;
+                            const allBtnSpan = document.querySelector("#filter-all-btn span");
+                            if (allBtnSpan) allBtnSpan.textContent = remaining;
+                        }, 300);
+                    }
+
+                } catch (err) {
+                    console.error("Delete contact error:", err);
+                    showToast("Failed to delete contact. Please try again.");
+                } finally {
+                    if (deleteSpinner) deleteSpinner.classList.add("hidden");
+                    if (deleteText) deleteText.textContent = "Yes, Delete";
+                    confirmDeleteBtn.disabled = false;
+                }
+            });
+        }
 
         if (modal) {
             document.querySelectorAll(".view-contact-btn").forEach(btn => {
                 btn.addEventListener("click", (e) => {
                     e.preventDefault();
                     const row = btn.closest(".contact-item-row");
-                    if (!row) return;
+                    const contactId = btn.getAttribute("data-id") || (row ? row.getAttribute("data-id") : null);
 
-                    const name = row.getAttribute("data-name") || "Unknown";
-                    const email = row.getAttribute("data-email") || "";
-                    const phone = row.getAttribute("data-phone") || "";
-                    const picture = row.getAttribute("data-picture") || "/Images/profile-svgrepo-com.svg";
-                    const address = row.getAttribute("data-address") || "";
-                    const desc = row.getAttribute("data-description") || "";
-                    const isFav = row.getAttribute("data-favorite") === "true";
-                    const linkedin = row.getAttribute("data-linkedin") || "";
-                    const website = row.getAttribute("data-website") || "";
-                    const twitter = row.getAttribute("data-twitter") || "";
-
-                    // Populate fields
-                    document.getElementById("modal-contact-name").textContent = name;
-                    document.getElementById("modal-contact-email").textContent = email;
-                    document.getElementById("modal-contact-phone").textContent = phone || "No phone provided";
-                    document.getElementById("modal-contact-picture").src = picture;
-
-                    const starEl = document.getElementById("modal-contact-star");
-                    if (starEl) starEl.classList.toggle("hidden", !isFav);
-
-                    const callBtn = document.getElementById("modal-call-btn");
-                    if (callBtn) {
-                        callBtn.href = phone ? "tel:" + phone : "#";
-                        callBtn.classList.toggle("opacity-50", !phone);
-                        callBtn.classList.toggle("pointer-events-none", !phone);
+                    if (contactId) {
+                        fetchAndRenderContactModal(contactId, row);
+                    } else if (row) {
+                        // Fallback if no ID found
+                        const dummyContact = {
+                            id: row.getAttribute("data-id") || "",
+                            name: row.getAttribute("data-name"),
+                            email: row.getAttribute("data-email"),
+                            phoneNumber: row.getAttribute("data-phone"),
+                            picture: row.getAttribute("data-picture"),
+                            address: row.getAttribute("data-address"),
+                            description: row.getAttribute("data-description"),
+                            favorite: row.getAttribute("data-favorite") === "true",
+                            linkedinLink: row.getAttribute("data-linkedin"),
+                            websiteLink: row.getAttribute("data-website"),
+                            twitterLink: row.getAttribute("data-twitter")
+                        };
+                        renderContactModalData(dummyContact);
+                        modal.classList.remove("hidden");
                     }
-
-                    const emailBtn = document.getElementById("modal-email-btn");
-                    if (emailBtn) {
-                        emailBtn.href = email ? "mailto:" + email : "#";
-                        emailBtn.classList.toggle("opacity-50", !email);
-                        emailBtn.classList.toggle("pointer-events-none", !email);
-                    }
-
-                    // Address & Desc
-                    const addrEl = document.getElementById("modal-contact-address");
-                    const addrBox = document.getElementById("modal-address-container");
-                    if (addrEl && addrBox) {
-                        addrEl.textContent = address || "No address added";
-                        addrBox.classList.toggle("hidden", !address);
-                    }
-
-                    const descEl = document.getElementById("modal-contact-desc");
-                    const descBox = document.getElementById("modal-desc-container");
-                    if (descEl && descBox) {
-                        descEl.textContent = desc || "No notes available";
-                        descBox.classList.toggle("hidden", !desc);
-                    }
-
-                    // Socials
-                    const liBtn = document.getElementById("modal-linkedin-btn");
-                    if (liBtn) {
-                        liBtn.href = linkedin || "#";
-                        liBtn.classList.toggle("hidden", !linkedin);
-                    }
-
-                    const webBtn = document.getElementById("modal-website-btn");
-                    if (webBtn) {
-                        webBtn.href = website || "#";
-                        webBtn.classList.toggle("hidden", !website);
-                    }
-
-                    const twBtn = document.getElementById("modal-twitter-btn");
-                    if (twBtn) {
-                        twBtn.href = twitter || "#";
-                        twBtn.classList.toggle("hidden", !twitter);
-                    }
-
-                    // Show modal with scale-in animation
-                    modal.classList.remove("hidden");
-                    setTimeout(() => {
-                        if (modalContainerCard) {
-                            modalContainerCard.classList.remove("scale-95");
-                            modalContainerCard.classList.add("scale-100");
-                        }
-                    }, 10);
                 });
             });
 
@@ -294,6 +514,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 closeModalBtn.addEventListener("click", closeModal);
             }
 
+            if (modalErrorCloseBtn) {
+                modalErrorCloseBtn.addEventListener("click", closeModal);
+            }
+
             modal.addEventListener("click", (e) => {
                 if (e.target === modal) {
                     closeModal();
@@ -301,8 +525,12 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             document.addEventListener("keydown", (e) => {
-                if (e.key === "Escape" && !modal.classList.contains("hidden")) {
-                    closeModal();
+                if (e.key === "Escape") {
+                    if (deleteConfirmModal && !deleteConfirmModal.classList.contains("hidden")) {
+                        closeDeleteConfirmationModal();
+                    } else if (!modal.classList.contains("hidden")) {
+                        closeModal();
+                    }
                 }
             });
         }

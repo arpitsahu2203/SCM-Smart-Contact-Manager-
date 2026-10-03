@@ -31,7 +31,28 @@ public class contactServiceImpl implements contactService {
 
     @Override
     public Contact updateContact(Contact contact) {
-        return null;
+        Contact existingContact = contactRepo.findById(contact.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Contact not found with given id: " + contact.getId()));
+
+        existingContact.setName(contact.getName());
+        existingContact.setEmail(contact.getEmail());
+        existingContact.setPhoneNumber(contact.getPhoneNumber());
+        existingContact.setAddress(contact.getAddress());
+        existingContact.setDescription(contact.getDescription());
+        existingContact.setFavorite(contact.isFavorite());
+        existingContact.setInstagramLink(contact.getInstagramLink());
+        existingContact.setLinkedinLink(contact.getLinkedinLink());
+        existingContact.setTwitterLink(contact.getTwitterLink());
+        existingContact.setWebsiteLink(contact.getWebsiteLink());
+
+        if (contact.getPicture() != null && !contact.getPicture().isBlank()) {
+            existingContact.setPicture(contact.getPicture());
+        }
+        if (contact.getPublicImageId() != null && !contact.getPublicImageId().isBlank()) {
+            existingContact.setPublicImageId(contact.getPublicImageId());
+        }
+
+        return contactRepo.save(existingContact);
     }
 
     @Override

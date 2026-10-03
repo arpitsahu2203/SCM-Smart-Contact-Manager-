@@ -70,7 +70,7 @@ public class SecurityConfig {
         //httpSecurity will help us configure that which page will have the security and also what type of security like login page or oAuth etc.
         //Configuration of Urls
         httpSecurity.authorizeHttpRequests(authorize->{
-            authorize.requestMatchers("/SMC/user/**").authenticated();//theses will get protected
+            authorize.requestMatchers("/SMC/user/**", "/SMC/api/**").authenticated();//these will get protected
             authorize.anyRequest().permitAll();//all other files can be accessed by anybody
         }); 
         
