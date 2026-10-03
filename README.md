@@ -243,12 +243,17 @@ Using the included Maven wrapper:
 
 **Linux / macOS:**
 ```bash
+<<<<<<< HEAD
 ./mvnw clean spring-boot:run
 ```
 
 Access the application in your browser at `http://localhost:8080`.
 
 ---
+=======
+mvn clean package
+```   
+>>>>>>> 0f40a82c5526d86f81e3f6db2af5f99222c295b2
 
 ## ⌨️ Keyboard Shortcuts
 
