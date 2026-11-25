@@ -49,5 +49,24 @@ public class imageServiceImpl implements imageService {
         ).generate(publicId);
     }
 
+    @Override
+    public void deleteImage(String publicImageId) {
+        if (publicImageId == null || publicImageId.isBlank()) {
+            return;
+        }
+
+        try {
+            cloudinary.uploader().destroy(
+                    publicImageId,
+                    ObjectUtils.asMap("resource_type", "image")
+            );
+        } catch (Exception e) {
+            throw new IllegalStateException(
+                    "Could not delete contact image from Cloudinary: " + publicImageId,
+                    e
+            );
+        }
+    }
+
 
 }

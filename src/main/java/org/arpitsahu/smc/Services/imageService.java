@@ -8,4 +8,6 @@ public interface imageService {
     public String uploadImage(MultipartFile contactImage, String image_id);
 
     public String geUrlFromPublicId(String publicId);
+
+    public void deleteImage(String publicImageId);
 }

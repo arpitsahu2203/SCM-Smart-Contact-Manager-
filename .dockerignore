@@ -1,0 +1,10 @@
+.git
+.gitignore
+.env
+.env.*
+target
+**/target
+uploads
+node_modules
+.idea
+.vscode

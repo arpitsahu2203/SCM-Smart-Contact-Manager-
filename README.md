@@ -1,268 +1,225 @@
-<div align="center">
+# Smart Contact Manager
 
-# 📇 Smart Contact Manager (SMC)
+Smart Contact Manager (SMC) is a Spring Boot web application for keeping personal contacts organized. It includes account authentication, contact profiles with Cloudinary-hosted images, and an email composer with Gmail delivery and optional Gemini-assisted drafting.
 
-**A modern, secure, and high-performance contact directory application built with Spring Boot 4, Tailwind CSS, Cloudinary CDN, and Spring Security 6.**
+## Features
 
-[![Java 21](https://img.shields.io/badge/Java-21-orange.svg?style=flat-square&logo=openjdk)](https://openjdk.org/)
-[![Spring Boot 4](https://img.shields.io/badge/Spring%20Boot-4.0.6-brightgreen.svg?style=flat-square&logo=springboot)](https://spring.io/projects/spring-boot)
-[![Spring Security](https://img.shields.io/badge/Spring%20Security-OAuth2-blue.svg?style=flat-square&logo=springsecurity)](https://spring.io/projects/spring-security)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.x-38bdf8.svg?style=flat-square&logo=tailwindcss)](https://tailwindcss.com/)
-[![Cloudinary](https://img.shields.io/badge/Cloudinary-CDN%20Storage-3448c5.svg?style=flat-square&logo=cloudinary)](https://cloudinary.com/)
-[![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1.svg?style=flat-square&logo=mysql&logoColor=white)](https://www.mysql.com/)
+- Register and sign in with a password, Google OAuth2, or GitHub OAuth2.
+- Create, view, update, search, favorite, and delete contacts.
+- Store contact details, notes, social links, and profile images.
+- Browse contacts with pagination and open contact details without reloading the page.
+- Send emails through a connected Gmail account, attach files, and view sent-email history.
+- Generate or polish email drafts with Google Gemini when an API key is configured.
+- Update the signed-in user's profile.
+- Responsive interface with light/dark theme support.
 
-<br />
+## Screenshots
 
-<p align="center">
-  <a href="#-features">Features</a> •
-  <a href="#-rest-api-endpoints">REST API</a> •
-  <a href="#-tech-stack">Tech Stack</a> •
-  <a href="#-project-structure">Project Structure</a> •
-  <a href="#-getting-started">Getting Started</a> •
-  <a href="#-configuration">Configuration</a>
-</p>
+| Page | Preview |
+| --- | --- |
+| Landing page | ![Landing page](docs/screenshots/landing-page.png) |
+| Dashboard | ![Dashboard](docs/screenshots/dashboard.png) |
+| Contacts directory | ![Contacts directory](docs/screenshots/contacts-directory.png) |
+| Add contact | ![Add contact](docs/screenshots/add-contact.png) |
+| Profile | ![Profile](docs/screenshots/profile.png) |
+| Login | ![Login](docs/screenshots/login-page.png) |
+| About | ![About](docs/screenshots/about-page.png) |
 
-</div>
+## Technology
 
----
+- Java 21 and Spring Boot 4
+- Spring MVC, Thymeleaf, Spring Security, and Spring Data JPA
+- MySQL 8
+- Google and GitHub OAuth2; Gmail API for sending email
+- Cloudinary for contact images
+- Google Gemini API for AI email drafts
+- Vanilla JavaScript, Tailwind CSS, and Flowbite
+- Docker Compose for running the application with MySQL
 
-## 🌟 Interface Showcase
+The shared page template loads Tailwind CSS and Flowbite from CDNs, so those frontend assets require browser internet access.
 
-<div align="center">
+## Getting started
 
-### 1. Landing Page & Product Hero
-*Linear-inspired functional minimalism with high-contrast light and dark themes.*
-<br/>
-<img src="docs/screenshots/landing-page.png" alt="Smart Contact Manager Landing Page" width="900" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.12);" />
+### Requirements
 
-<br/><br/>
+For a local run:
 
-### 2. Workspace Dashboard
-*Real-time metrics, animated counters, recent contacts overview, and quick action shortcuts.*
-<br/>
-<img src="docs/screenshots/dashboard.png" alt="Smart Contact Manager Dashboard" width="900" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.12);" />
+- Java 21
+- MySQL 8
+- Git
 
-<br/><br/>
+Maven is not required separately; the repository includes Maven Wrapper scripts. Docker Desktop with Docker Compose is an alternative to installing MySQL locally.
 
-### 3. Contacts Directory & Live Search
-*High-density table with instant keyboard filtering (`Ctrl + K`), favorite filters, one-click copy to clipboard, and quick-action triggers.*
-<br/>
-<img src="docs/screenshots/contacts-directory.png" alt="Contacts Directory" width="900" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.12);" />
+### 1. Get the code
 
-<br/><br/>
-
-### 4. Rich Contact Creator
-*Drag-and-drop Cloudinary avatar dropzone, live image removal, and character counting.*
-<br/>
-<img src="docs/screenshots/add-contact.png" alt="Add Contact View" width="900" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.12);" />
-
-<br/><br/>
-
-### 5. Account Security & User Profile
-*OAuth provider synchronization, verified email badges, and editable account profile.*
-<br/>
-<img src="docs/screenshots/profile.png" alt="Account Profile View" width="900" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.12);" />
-
-<br/><br/>
-
-### 6. Philosophy & Mission
-<br/>
-<img src="docs/screenshots/about-page.png" alt="About Section" width="900" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.12);" />
-
-</div>
-
----
-
-## ✨ Features
-
-### 🔐 Authentication & Security
-- **Multi-Provider OAuth2**: One-click social authentication using **Google** and **GitHub**.
-- **Database Authentication**: Email and BCrypt-hashed password authentication with role-based access control (`ROLE_USER`).
-- **Granular Authorization**: Strict ownership validation preventing unauthorized access or deletion of other users' contacts.
-- **Protected REST Layer**: Endpoints under `/SMC/user/**` and `/SMC/api/**` strictly enforce Spring Security authentication.
-
-### 📇 Modern Contact Management
-- **Full CRUD Engine**: Add, view, edit, and delete contacts with comprehensive profiles (Name, Email, Phone, Address, Notes, Favorite status, and Social Channels: LinkedIn, Website, X/Twitter, Instagram).
-- **Asynchronous Contact Quick-View Modal (AJAX)**:
-  - Zero-page-reload contact inspection powered by `GET /SMC/api/contacts/{id}`.
-  - Smooth animation with an animated skeleton loader (`animate-pulse`) while fetching.
-  - Dedicated error and offline fallback states.
-  - Quick action buttons: **Direct Call** (`tel:`), **Send Email** (`mailto:`), **Edit Contact**, and **Delete Contact**.
-- **Contact Deletion with Confirmation Popup**:
-  - Accessible confirmation modal (`#delete-contact-confirm-modal`) displaying contact name and destruction warnings.
-  - Destructive action executed asynchronously via `DELETE /SMC/api/contacts/{id}`.
-  - Instant row removal with smooth CSS fade/scale transition and dynamic counter updates without reloading.
-- **Contact Profile Editing**:
-  - Full edit interface (`/SMC/user/Contact/view/{id}` & `/update/{id}`) with prefilled fields.
-  - Supports photo replacement with Cloudinary upload synchronization.
-- **User Account Profile Editing**:
-  - Interactive profile edit modal on `/SMC/user/profile` allowing users to update their **Name**, **Phone Number**, and **About Bio**.
-- **Interactive Directory Tools**:
-  - Real-time client-side search filtering by name, phone, or email.
-  - **One-Click Copy**: Click any phone number or email to copy to clipboard with instant visual feedback and toast notifications.
-  - **Favorites Filtering**: Filter starred priority connections with one click.
-
-### 🎨 Modern UI & Interaction Design
-- **Linear & Apple-Inspired Aesthetics**: Crisp slate typography, subtle borders, glassmorphic panels, and glowing avatar halos.
-- **Adaptive Dark & Light Mode**: Theme engine with system-preference detection and zero-flash inline script.
-- **Tactile Micro-Interactions**: Animated stat counters on dashboard metrics, hover scale states, and interactive character countdown on notes.
-- **Fully Responsive**: Fixed desktop sidebar navigation with mobile off-canvas drawer and backdrop blur overlay.
-
----
-
-## 🔌 REST API Endpoints
-
-All REST endpoints require authentication and enforce contact ownership:
-
-| HTTP Method | Endpoint | Description | Status Codes |
-| :--- | :--- | :--- | :--- |
-| `GET` | `/SMC/api/contacts/{id}` | Fetches full contact details asynchronously | `200`, `401`, `403`, `404` |
-| `PUT` | `/SMC/api/contacts/{id}` | Updates contact fields via JSON payload | `200`, `401`, `403`, `404` |
-| `DELETE` | `/SMC/api/contacts/{id}` | Deletes a contact record with confirmation | `200`, `401`, `403`, `404` |
-
-### Web Controller Routes
-
-| HTTP Method | Route | Description |
-| :--- | :--- | :--- |
-| `GET` | `/SMC/user/Contact/view` | Contacts directory table with pagination and search |
-| `GET` | `/SMC/user/Contact/add` | Add new contact view |
-| `POST` | `/SMC/user/Contact/add` | Form submit to create a new contact |
-| `GET` | `/SMC/user/Contact/view/{id}` | Edit contact profile page |
-| `POST` | `/SMC/user/Contact/update/{id}` | Form submit to update contact details |
-| `GET` | `/SMC/user/Contact/delete/{id}` | Traditional fallback delete route |
-| `GET` | `/SMC/user/profile` | View logged-in user profile |
-| `POST` | `/SMC/user/profile/update` | Update user account name, phone, and bio |
-
----
-
-## 🛠 Tech Stack
-
-| Layer | Technology | Description |
-| :--- | :--- | :--- |
-| **Backend Framework** | Spring Boot 4.0.6 | Core web framework, REST controllers, and dependency injection |
-| **Language** | Java 21 LTS | Modern Java features (Records, Pattern Matching) |
-| **Security** | Spring Security 6 & OAuth2 | Multi-provider authentication (Google, GitHub, Form Login) |
-| **Persistence** | Spring Data JPA & Hibernate | Entity modeling and database abstractions |
-| **Database** | MySQL 8.0+ | Relational storage for users, contacts, and tokens |
-| **Frontend** | Thymeleaf 3 | Server-side template engine |
-| **Styling** | Tailwind CSS & Modern Theme | Utility-first CSS with dark/light mode tokens |
-| **Interactions** | Vanilla JavaScript (ES6+) | Asynchronous AJAX fetch, modal engines, and clipboard integration |
-| **Media CDN** | Cloudinary API | High-speed cloud image hosting & optimization |
-
----
-
-## 📂 Project Structure
-
-```
-SCM-Smart-Contact-Manager/
-├── docs/
-│   └── screenshots/              # High-resolution application screenshots
-├── src/
-│   ├── main/
-│   │   ├── java/org/arpitsahu/smc/
-│   │   │   ├── Config/           # SecurityConfig, OAuth2SuccessHandler, AppConfig
-│   │   │   ├── Controller/       # ContactController, ContactApiController, UserController
-│   │   │   ├── Entities/         # JPA Entities (Users, Contact, Providers, SocialLink)
-│   │   │   ├── forms/            # Form DTOs (contactForm, UserForms)
-│   │   │   ├── Helper/           # Helpers, AppConstants, ResourceNotFoundException
-│   │   │   ├── payload/          # ContactResponseDto (Clean REST serialization)
-│   │   │   ├── Repository/       # Spring Data JPA Repositories (UserRepo, contactRepo)
-│   │   │   ├── Services/         # Service Interfaces (contactService, UserService)
-│   │   │   ├── ServiceImpl/      # Service Implementations (contactServiceImpl, etc.)
-│   │   │   └── SmcApplication.java # Application Entry Point
-│   │   └── resources/
-│   │       ├── static/
-│   │       │   ├── css/          # Custom modern-theme.css & utility styles
-│   │       │   ├── JS/           # Script.js (Modal & AJAX engines) & Admin.js
-│   │       │   └── Images/       # Default avatar assets & SVG graphics
-│   │       ├── templates/        # Thymeleaf Templates (Base, home, login, register)
-│   │       │   └── user/         # Authenticated User Views (dashboard, contacts, UpdateContact, profile)
-│   │       └── application.properties # Main Spring configuration
-├── .env.example                  # Template for local environment secrets
-├── pom.xml                       # Maven dependencies & build configuration
-└── README.md
-```
-
----
-
-## 🚀 Getting Started
-
-### 1. Prerequisites
-- **Java 21 LTS** or higher installed (`java -version`)
-- **Maven 3.8+** (or use included `.\mvnw.cmd` / `./mvnw`)
-- **MySQL Server 8.0+** running locally or remotely
-
-### 2. Clone the Repository
 ```bash
 git clone https://github.com/arpitsahu2203/SCM-Smart-Contact-Manager-.git
 cd SCM-Smart-Contact-Manager-
 ```
 
-### 3. Configure Environment Variables
-Copy `.env.example` to `.env`:
+### 2. Configure the environment
+
+Copy `.env.example` to `.env` and replace the example values:
+
+**PowerShell**
+
+```powershell
+Copy-Item .env.example .env
+```
+
+**Linux/macOS**
 
 ```bash
 cp .env.example .env
 ```
 
-Fill in your local credentials:
-```properties
-# MySQL Configuration
-DB_HOST=localhost
-DB_PORT=3306
-DB_NAME=scm2
-DB_USER=root
-DB_PASSWORD=your_mysql_password
+The application reads these settings:
 
-# Cloudinary CDN Configuration
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
+| Variable | Purpose |
+| --- | --- |
+| `DB_URL` | JDBC URL for MySQL; local default is `jdbc:mysql://localhost:3306/scm2` |
+| `DB_USERNAME` | MySQL username |
+| `DB_PASSWORD` | MySQL password |
+| `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | Google sign-in and Gmail access |
+| `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` | GitHub sign-in |
+| `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET` | Contact image storage |
+| `GEMINI_API_KEY`, `GEMINI_MODEL` | AI email drafting; model defaults to `gemini-3.8-flash` |
 
-# Google OAuth2 Credentials
-GOOGLE_CLIENT_ID=your_google_client_id
-GOOGLE_CLIENT_SECRET=your_google_client_secret
+MySQL, Google, GitHub, Cloudinary, and Gemini settings should be set to valid credentials for the related features. Keep `.env` private and do not commit real credentials.
 
-# GitHub OAuth2 Credentials
-GITHUB_CLIENT_ID=your_github_client_id
-GITHUB_CLIENT_SECRET=your_github_client_secret
+For OAuth2 sign-in, configure the local callback URL with the provider:
+
+```text
+http://localhost:8080/login/oauth2/code/google
+http://localhost:8080/login/oauth2/code/github
 ```
 
-### 4. Create MySQL Database
+### 3. Create the local database
+
+Create the database named `scm2` in MySQL:
+
 ```sql
 CREATE DATABASE scm2;
 ```
 
-### 5. Build and Run
-Using the included Maven wrapper:
+Hibernate is configured with `ddl-auto=update` and creates or updates the application's tables when it connects.
 
-**Windows (PowerShell):**
+### 4. Run the application
+
+**Windows PowerShell**
+
 ```powershell
-.\mvnw.cmd clean spring-boot:run
+.\mvnw.cmd spring-boot:run
 ```
 
-**Linux / macOS:**
+**Linux/macOS**
+
 ```bash
-<<<<<<< HEAD
-./mvnw clean spring-boot:run
+./mvnw spring-boot:run
 ```
 
-Access the application in your browser at `http://localhost:8080`.
+Open [http://localhost:8080/SMC/home](http://localhost:8080/SMC/home). The sign-in page is available at [http://localhost:8080/login](http://localhost:8080/login).
 
----
-=======
-mvn clean package
-```   
->>>>>>> 0f40a82c5526d86f81e3f6db2af5f99222c295b2
+## Run with Docker
 
-## ⌨️ Keyboard Shortcuts
+Docker Compose starts the Spring Boot application and MySQL. The Compose configuration reads `.env` from the repository root; set `DB_PASSWORD` there before starting.
 
-| Shortcut | Action | Scope |
-| :--- | :--- | :--- |
-| `Ctrl + K` or `/` | Focus live contact search bar | Contacts Directory |
-| `Escape` | Close active modals (Profile, Delete Confirmation) | Global |
+```bash
+docker compose up --build
+```
 
----
+Open [http://localhost:8080/SMC/home](http://localhost:8080/SMC/home). Compose overrides `DB_URL` inside the application container to connect to the MySQL service.
 
-## 📄 License
-This project is licensed under the MIT License.
+Stop the containers while preserving data:
+
+```bash
+docker compose down
+```
+
+To delete the MySQL database and stored email attachments as well, run:
+
+```bash
+docker compose down -v
+```
+
+**Warning:** `docker compose down -v` permanently removes the Docker volumes and their data.
+
+## Tests and frontend assets
+
+Run the Java test suite with:
+
+```bash
+./mvnw test
+```
+
+On Windows, use `.\mvnw.cmd test`. The Spring Boot context test uses the configured datasource, so MySQL must be available.
+
+The optional Tailwind build scripts are defined in `package.json`:
+
+```bash
+npm install
+npm run tw:build
+```
+
+`npm run tw:watch` runs the Tailwind watcher during frontend development.
+
+## Routes
+
+### Pages and account
+
+| Method | Path | Purpose |
+| --- | --- | --- |
+| `GET` | `/SMC/home` | Landing page |
+| `GET` | `/login` | Sign-in page |
+| `GET` | `/SMC/register` | Registration page |
+| `POST` | `/SMC/do-register` | Create an account |
+| `GET` | `/SMC/user/dashboard` | User dashboard |
+| `GET` | `/SMC/user/profile` | User profile |
+| `GET` | `/SMC/user/Contact/view` | Paginated contacts directory |
+| `GET`, `POST` | `/SMC/user/Contact/add` | Add a contact |
+| `GET` | `/SMC/user/Contact/view/{id}` | Edit a contact |
+| `POST` | `/SMC/user/Contact/update/{id}` | Save contact changes |
+
+### JSON API
+
+| Method | Path | Purpose |
+| --- | --- | --- |
+| `GET` | `/SMC/api/contacts/{id}` | Fetch contact details |
+| `PUT` | `/SMC/api/contacts/{id}` | Update a contact |
+| `DELETE` | `/SMC/api/contacts/{id}` | Delete a contact |
+| `GET` | `/SMC/api/email/status` | Check Gmail connection status |
+| `POST` | `/SMC/api/email/ai/generate` | Generate an email draft |
+| `POST` | `/SMC/api/email/ai/refine` | Refine an email draft |
+| `GET` | `/SMC/api/email/history/{contactId}` | Get sent-email history |
+
+Requests under `/SMC/user/**` and `/SMC/api/**` require authentication. Contact API operations check that the contact belongs to the signed-in user.
+
+## Project layout
+
+```text
+.
+├── Dockerfile
+├── docker-compose.yml
+├── .dockerignore
+├── .env.example
+├── pom.xml
+├── package.json
+├── docs/
+│   └── screenshots/
+└── src/
+    ├── main/
+    │   ├── java/org/arpitsahu/smc/
+    │   │   ├── Config/       # Security and application configuration
+    │   │   ├── Controller/   # Page, contact, account, and email endpoints
+    │   │   ├── Entities/     # JPA entities
+    │   │   ├── Repository/   # Spring Data repositories
+    │   │   ├── Services/     # Service interfaces
+    │   │   ├── ServiceImpl/  # Service implementations
+    │   │   ├── forms/        # Form models
+    │   │   └── payload/      # API request and response models
+    │   └── resources/
+    │       ├── static/       # CSS, JavaScript, and images
+    │       ├── templates/    # Thymeleaf views
+    │       └── application.properties
+    └── test/
+```

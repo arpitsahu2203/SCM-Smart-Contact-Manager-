@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Something went wrong | SMC</title>
+    <link rel="stylesheet" th:href="@{/css/modern-theme.css}">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-white">
+    <main class="mx-auto flex min-h-screen max-w-xl items-center justify-center px-5 py-12">
+        <section
+            class="w-full rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-xl dark:border-slate-800 dark:bg-slate-900">
+            <div
+                class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-rose-100 text-2xl text-rose-600">
+                !</div>
+            <p class="mt-5 text-xs font-bold uppercase tracking-[.2em] text-slate-400"
+                th:text="${status != null ? 'Error ' + status : 'Unexpected error'}">Unexpected error</p>
+            <h1 class="mt-2 text-2xl font-bold">We couldn’t complete that request</h1>
+            <p class="mt-3 text-sm leading-6 text-slate-500"
+                th:text="${message != null and !message.isBlank() ? message : 'Please try again. If the problem continues, return to your contacts and retry the action.'}">
+                Please try again.</p>
+            <div class="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
+                <a href="/SMC/user/Contact/view"
+                    class="rounded-xl bg-indigo-600 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-indigo-500/20 hover:bg-indigo-700">Return
+                    to contacts</a>
+                <a href="/"
+                    class="rounded-xl border border-slate-200 px-5 py-3 text-sm font-bold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200">Go
+                    home</a>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>
